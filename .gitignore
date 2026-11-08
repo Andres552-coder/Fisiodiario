@@ -44,3 +44,8 @@ __pycache__/
 *.py[cod]
 venv/
 .venv/
+
+# Temporary extraction files
+frontend_src/
+*.zip
+

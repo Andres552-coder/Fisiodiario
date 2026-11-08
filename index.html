@@ -1,0 +1,2376 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>FisioTrack - Registro Clínico y Seguimiento EVA</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#00685f",
+            "on-primary": "#ffffff",
+            "primary-container": "#008378",
+            "on-primary-container": "#f4fffc",
+            "primary-fixed": "#89f5e7",
+            "primary-fixed-dim": "#6bd8cb",
+            "on-primary-fixed": "#00201d",
+            "on-primary-fixed-variant": "#005049",
+            "secondary": "#006398",
+            "on-secondary": "#ffffff",
+            "secondary-container": "#5bb8fe",
+            "on-secondary-container": "#00476e",
+            "secondary-fixed": "#cce5ff",
+            "secondary-fixed-dim": "#93ccff",
+            "on-secondary-fixed": "#001d31",
+            "on-secondary-fixed-variant": "#004b73",
+            "tertiary": "#006947",
+            "on-tertiary": "#ffffff",
+            "tertiary-container": "#00855b",
+            "on-tertiary-container": "#f5fff6",
+            "tertiary-fixed": "#6ffbbe",
+            "tertiary-fixed-dim": "#4edea3",
+            "on-tertiary-fixed": "#002113",
+            "on-tertiary-fixed-variant": "#005236",
+            "error": "#ba1a1a",
+            "on-error": "#ffffff",
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "surface": "#f8f9ff",
+            "on-surface": "#0d1c2e",
+            "surface-dim": "#ccdbf3",
+            "surface-bright": "#f8f9ff",
+            "surface-variant": "#d5e3fc",
+            "on-surface-variant": "#3d4947",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#eff4ff",
+            "surface-container": "#e6eeff",
+            "surface-container-high": "#dce9ff",
+            "surface-container-highest": "#d5e3fc",
+            "outline": "#6d7a77",
+            "outline-variant": "#bcc9c6"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          spacing: {
+            gutter: "1.25rem",
+            "gutter-mobile": "0.75rem",
+            margin: "2rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem"
+          },
+          fontFamily: {
+            "display-lg": ["Manrope"],
+            "headline-lg": ["Manrope"],
+            "headline-md": ["Manrope"],
+            "headline-sm": ["Manrope"],
+            "body-lg": ["Manrope"],
+            "body-md": ["Manrope"],
+            "body-sm": ["Manrope"],
+            "label-lg": ["JetBrains Mono"],
+            "label-md": ["JetBrains Mono"],
+            "label-sm": ["JetBrains Mono"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased">
+  <!-- Header Global SPA -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="h-20 w-full px-margin flex items-center justify-between gap-space-md">
+      <div class="flex items-center gap-space-lg shrink-0">
+        <a href="#pacientes-y-turno" class="flex items-center gap-space-sm cursor-pointer">
+          <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm">
+            <span class="material-symbols-outlined text-[24px]">vital_signs</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">FisioTrack</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Prácticas Clínicas</span>
+          </div>
+        </a>
+        <div class="h-8 w-[1px] bg-outline-variant/40 hidden xl:block"></div>
+        <nav class="flex items-center gap-space-xs">
+          <a class="font-body-sm text-body-sm px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="pacientes-y-turno" href="#pacientes-y-turno">Pacientes y Turno</a>
+          <a class="font-body-sm text-body-sm px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="nueva-sesion" href="#nueva-sesion">Nueva Sesión</a>
+          <a class="font-body-sm text-body-sm px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="historial-clinico" href="#historial-clinico">Historial Clínico</a>
+          <a class="font-body-sm text-body-sm px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="evolucion-eva" href="#evolucion-eva">Evolución EVA</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-space-md shrink-0">
+        <div class="hidden lg:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed border border-secondary-fixed-dim">
+          <span class="material-symbols-outlined text-[16px] text-secondary">lock</span>
+          <span class="font-label-sm text-label-sm font-medium">Modo Privacidad Activo (Sin Datos Personales)</span>
+        </div>
+        <a class="hidden sm:inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-semibold hover:bg-primary-container transition-colors shadow-sm" href="#nueva-sesion">
+          <span class="material-symbols-outlined text-[18px]">add</span>
+          <span>Registrar Sesión</span>
+        </a>
+        <div class="h-8 w-[1px] bg-outline-variant/40 hidden sm:block"></div>
+        <div class="flex items-center gap-space-sm">
+          <div class="flex flex-col text-right hidden md:flex">
+            <div class="flex items-center justify-end gap-1">
+              <span class="font-body-sm text-body-sm font-semibold text-on-surface">Xarid Michel</span>
+              <span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-medium">Estudiante</span>
+            </div>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">Universidad de Boyacá</span>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal de Vistas -->
+  <main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]">
+    <!-- VISTA 1: Pacientes y Turno -->
+    <div id="view-pacientes-y-turno" class="app-view">
+      <div class="flex flex-col w-full">
+<div class="w-full px-margin py-space-md space-y-space-lg">
+<!-- Top Shift Metrics Banner (Asymmetrical modern clinical card) -->
+<section class="w-full bg-surface-container-lowest rounded-xl shadow-sm p-space-lg relative overflow-hidden">
+<div class="absolute -right-16 -top-16 w-64 h-64 bg-primary/5 rounded-full pointer-events-none blur-2xl"></div>
+<div class="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold tracking-wide uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+              En Curso
+            </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Rotación Musculoesquelética</span>
+</div>
+<div class="flex items-baseline gap-space-sm flex-wrap">
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Turno Tarde • Hospital Clínico Docente</h1>
+<span class="font-body-md text-body-md text-on-surface-variant">Box 03 &amp; 04 • Docente a cargo: Lic. Xaird Michel</span>
+</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm">
+<div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between min-w-[120px]">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Pacientes Activos</span><span id="metrics-active-patients" class="hidden"></span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-headline-md text-headline-md font-bold text-on-surface" id="stat-active-patients">4</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">en nómina</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between min-w-[120px]">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sesiones Hoy</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span id="metrics-sessions-today" class="font-headline-lg text-headline-lg font-bold text-on-surface">4</span> <span class="font-body-sm text-body-sm text-on-surface-variant font-medium">registradas</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between min-w-[120px]">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Δ EVA Promedio</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span id="metrics-delta-eva" class="font-headline-lg text-headline-lg font-bold text-tertiary">-2.8 pts</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between min-w-[120px]">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Ronda Tutor</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-headline-md text-headline-md font-bold text-secondary">16:45</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">hrs</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Drawer Trigger + Anonymity Compliance Strip -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- Rapid Anonymized Admission Quick Bar -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center shrink-0 text-on-primary-fixed">
+<span class="material-symbols-outlined text-[22px]">person_add</span>
+</div>
+<div class="space-y-0.5">
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Alta Rápida Sin Datos Personales</h2>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Privacidad LOPD</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Generación instantánea de identificador unívoco para rotaciones universitarias.</p>
+</div>
+</div>
+<button id="btn-open-create-patient" type="button" class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-semibold hover:bg-primary-container transition-colors shadow-sm cursor-pointer"><span class="material-symbols-outlined text-[18px]">person_add</span><span>Dar de Alta Nuevo Código</span></button>
+</div>
+<!-- Quick Regulatory Safety Shield -->
+<div class="lg:col-span-4 bg-surface-container-low rounded-xl p-space-md shadow-sm flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[28px] shrink-0">verified</span>
+<div class="space-y-0.5">
+<span class="font-label-sm text-label-sm font-semibold uppercase text-secondary tracking-wide">Filtro de Desidentificación</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">Prohibido registrar RUT/DNI, nombres o domicilios. Solo códigos de control interno.</p>
+</div>
+</div>
+</section>
+<!-- Filter & Clinical Workspace Toolbar -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md">
+<!-- Code Search -->
+<div class="relative flex-1 max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant text-[20px] pointer-events-none">search</span>
+<input id="search-patient-input" type="text" placeholder="Filtrar por código (ej: P-01, P-03) o patología..." class="w-full pl-10 pr-4 py-2 bg-transparent font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none"/>
+</div>
+<!-- Body Region Filter Pills -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0" id="filter-container">
+<button class="filter-chip px-3 py-1.5 rounded-full font-label-sm text-label-sm font-semibold bg-primary text-on-primary shadow-sm transition-all whitespace-nowrap" onclick="filterRegion('all', this)">
+          Todos (4)
+        </button>
+<button class="filter-chip px-3 py-1.5 rounded-full font-label-sm text-label-sm font-medium bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all whitespace-nowrap" onclick="filterRegion('inferior', this)">
+          Miembro Inferior (2)
+        </button>
+<button class="filter-chip px-3 py-1.5 rounded-full font-label-sm text-label-sm font-medium bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all whitespace-nowrap" onclick="filterRegion('columna', this)">
+          Columna (1)
+        </button>
+<button class="filter-chip px-3 py-1.5 rounded-full font-label-sm text-label-sm font-medium bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all whitespace-nowrap" onclick="filterRegion('superior', this)">
+          Miembro Superior (1)
+        </button>
+</div>
+</section>
+<!-- Patient Clinical Cards Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-space-lg" id="patients-grid-container">
+<!-- Patient P-01 -->
+<article class="patient-card bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all p-space-md flex flex-col justify-between gap-space-md" data-code="p-01" data-region="inferior">
+<div class="space-y-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="w-12 h-12 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center shadow-sm">P-01</span>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Rodilla derecha</h3>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">Semana 4</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-medium">Tendinopatía rotuliana • Sobrecarga excéntrica</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+              Hoy, 11:30
+            </span>
+</div>
+<!-- Session Progress & Visual EVA Indicator -->
+<div class="bg-surface-container-low rounded-lg p-space-sm grid grid-cols-2 gap-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sesiones Registradas</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">4</span>
+<div class="flex gap-1">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="w-2 h-2 rounded-full bg-outline-variant/40"></span>
+</div>
+</div>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Evolución Escala EVA</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-md text-label-md line-through text-on-surface-variant">8/10</span>
+<span class="material-symbols-outlined text-[14px] text-tertiary">arrow_forward</span>
+<span class="font-label-lg text-label-lg font-bold text-tertiary">3/10</span>
+<span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">-5 pts</span>
+</div>
+</div>
+</div>
+<!-- Micro SVG Delta Curve Visual -->
+<div class="bg-surface-container rounded-lg p-2.5 flex items-center justify-between">
+<div class="space-y-0.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Curva de Dolor Dinámico</span>
+<span class="block font-body-sm text-body-sm font-semibold text-primary">Mejoría sostenida (-62.5%)</span>
+</div>
+<!-- Sparkline SVG -->
+<svg class="w-28 h-7 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 100 24">
+<polyline points="5,20 30,17 60,11 95,4"></polyline>
+<circle cx="95" cy="4" fill="currentColor" r="2.5"></circle>
+</svg>
+</div>
+</div>
+<!-- Action Matrix -->
+<div class="pt-space-xs grid grid-cols-3 gap-2">
+<button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+<span>+ Sesión</span>
+</button>
+<button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[16px]">history_edu</span>
+<span>Historial</span>
+</button>
+<button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[16px]">show_chart</span>
+<span>Ver EVA</span>
+</button>
+</div>
+</article>
+<!-- Patient P-02 -->
+<article class="patient-card bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all p-space-md flex flex-col justify-between gap-space-md" data-code="p-02" data-region="columna">
+<div class="space-y-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="w-12 h-12 rounded-xl bg-secondary text-on-secondary font-label-lg text-label-lg font-bold flex items-center justify-center shadow-sm">P-02</span>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Columna Lumbar</h3>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">Semana 2</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-medium">Lumbalgia mecánica inespecífica • Fase subaguda</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">history</span>
+              Ayer
+            </span>
+</div>
+<!-- Session Progress & Visual EVA Indicator -->
+<div class="bg-surface-container-low rounded-lg p-space-sm grid grid-cols-2 gap-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sesiones Registradas</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">2</span>
+<div class="flex gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="w-2 h-2 rounded-full bg-outline-variant/40"></span>
+<span class="w-2 h-2 rounded-full bg-outline-variant/40"></span>
+<span class="w-2 h-2 rounded-full bg-outline-variant/40"></span>
+</div>
+</div>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Evolución Escala EVA</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-md text-label-md line-through text-on-surface-variant">7/10</span>
+<span class="material-symbols-outlined text-[14px] text-tertiary">arrow_forward</span>
+<span class="font-label-lg text-label-lg font-bold text-tertiary">5/10</span>
+<span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">-2 pts</span>
+</div>
+</div>
+</div>
+<!-- Micro SVG Delta Curve Visual -->
+<div class="bg-surface-container rounded-lg p-2.5 flex items-center justify-between">
+<div class="space-y-0.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Curva de Dolor Dinámico</span>
+<span class="block font-body-sm text-body-sm font-semibold text-secondary">Control de espasmo paravertebral</span>
+</div>
+<svg class="w-28 h-7 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 100 24">
+<polyline points="5,18 45,16 95,9"></polyline>
+<circle cx="95" cy="9" fill="currentColor" r="2.5"></circle>
+</svg>
+</div>
+</div>
+<!-- Action Matrix -->
+<div class="pt-space-xs grid grid-cols-3 gap-2">
+<button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+<span>+ Sesión</span>
+</button>
+<button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[16px]">history_edu</span>
+<span>Historial</span>
+</button>
+<button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[16px]">show_chart</span>
+<span>Ver EVA</span>
+</button>
+</div>
+</article>
+<!-- Patient P-03 -->
+<article class="patient-card bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all p-space-md flex flex-col justify-between gap-space-md" data-code="p-03" data-region="superior">
+<div class="space-y-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="w-12 h-12 rounded-xl bg-tertiary-container text-on-tertiary font-label-lg text-label-lg font-bold flex items-center justify-center shadow-sm">P-03</span>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Hombro izquierdo</h3>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">Semana 5</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-medium">Tendinopatía supraespinoso • Pinzamiento subacromial</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+              12 Mar
+            </span>
+</div>
+<!-- Session Progress & Visual EVA Indicator -->
+<div class="bg-surface-container-low rounded-lg p-space-sm grid grid-cols-2 gap-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sesiones Registradas</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">5</span>
+<div class="flex gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+</div>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Evolución Escala EVA</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-md text-label-md line-through text-on-surface-variant">9/10</span>
+<span class="material-symbols-outlined text-[14px] text-tertiary">arrow_forward</span>
+<span class="font-label-lg text-label-lg font-bold text-tertiary">4/10</span>
+<span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">-5 pts</span>
+</div>
+</div>
+</div>
+<!-- Micro SVG Delta Curve Visual -->
+<div class="bg-surface-container rounded-lg p-2.5 flex items-center justify-between">
+<div class="space-y-0.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Curva de Dolor Dinámico</span>
+<span class="block font-body-sm text-body-sm font-semibold text-tertiary">Ganancia ROM en abducción (+35°)</span>
+</div>
+<svg class="w-28 h-7 text-tertiary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 100 24">
+<polyline points="5,22 25,18 50,15 75,10 95,6"></polyline>
+<circle cx="95" cy="6" fill="currentColor" r="2.5"></circle>
+</svg>
+</div>
+</div>
+<!-- Action Matrix -->
+<div class="pt-space-xs grid grid-cols-3 gap-2">
+<button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+<span>+ Sesión</span>
+</button>
+<button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[16px]">history_edu</span>
+<span>Historial</span>
+</button>
+<button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[16px]">show_chart</span>
+<span>Ver EVA</span>
+</button>
+</div>
+</article>
+<!-- Patient P-04 -->
+<article class="patient-card bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all p-space-md flex flex-col justify-between gap-space-md" data-code="p-04" data-region="inferior">
+<div class="space-y-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="w-12 h-12 rounded-xl bg-outline text-surface-container-lowest font-label-lg text-label-lg font-bold flex items-center justify-center shadow-sm">P-04</span>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Tobillo derecho</h3>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">Semana 1</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-medium">Esguince Grado II • Ligamento LPAA</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+              Hoy, 09:15
+            </span>
+</div>
+<!-- Session Progress & Visual EVA Indicator -->
+<div class="bg-surface-container-low rounded-lg p-space-sm grid grid-cols-2 gap-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sesiones Registradas</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">1</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm font-medium">Ingreso Reciente</span>
+</div>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Evolución Escala EVA</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-md text-label-md line-through text-on-surface-variant">7/10</span>
+<span class="material-symbols-outlined text-[14px] text-outline">arrow_forward</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">6/10</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-bold">-1 pt</span>
+</div>
+</div>
+</div>
+<!-- Micro SVG Delta Curve Visual -->
+<div class="bg-surface-container rounded-lg p-2.5 flex items-center justify-between">
+<div class="space-y-0.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Curva de Dolor Dinámico</span>
+<span class="block font-body-sm text-body-sm font-semibold text-outline">Control de edema y propiocepción</span>
+</div>
+<svg class="w-28 h-7 text-outline" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 100 24">
+<polyline points="5,18 50,16 95,14"></polyline>
+<circle cx="95" cy="14" fill="currentColor" r="2.5"></circle>
+</svg>
+</div>
+</div>
+<!-- Action Matrix -->
+<div class="pt-space-xs grid grid-cols-3 gap-2">
+<button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+<span>+ Sesión</span>
+</button>
+<button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[16px]">history_edu</span>
+<span>Historial</span>
+</button>
+<button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[16px]">show_chart</span>
+<span>Ver EVA</span>
+</button>
+</div>
+</article>
+</section>
+<!-- Clinical Clinical Briefing for Round / Supervisor Discussion -->
+<section id="history-sessions-timeline" class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-bold">
+<span class="material-symbols-outlined text-[20px]">clinical_notes</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Resumen para Discusión con Docente Tutor</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Guía de pase de guardia • Preparación para ronda de las 16:45</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Revisión de Evidencia &amp; Avance Funcional</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+<!-- Pillar 1: Greatest Improvement Highlight -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex flex-col justify-between space-y-space-sm">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm font-bold uppercase text-tertiary tracking-wide">Mayor Disminución EVA</span>
+<span class="px-2 py-0.5 rounded bg-tertiary text-on-tertiary font-label-sm text-label-sm font-bold">-5 Puntos</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">P-01 (Rodilla) y P-03 (Hombro)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Ambos pacientes completaron protocolo de sobrecarga progresiva sin dolor residual persistente a 24 horas.
+            </p>
+</div>
+<div class="pt-2 text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-tertiary">check_circle</span>
+            Aprobación para fase de fuerza submáxima
+          </div>
+</div>
+<!-- Pillar 2: Case Requiring Clinical Question -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex flex-col justify-between space-y-space-sm">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm font-bold uppercase text-secondary tracking-wide">Caso a Discutir</span>
+<span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold">P-02 (Lumbar)</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">Meseta en EVA 5/10</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              ¿Indicar tracción intermitente manual o intensificar puente pélvico isométrica con retroversión pélvica asistida?
+            </p>
+</div>
+<div class="pt-2 text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">help</span>
+            Requiere feedback del tutor en box
+          </div>
+</div>
+<!-- Pillar 3: Educational Objective -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex flex-col justify-between space-y-space-sm">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm font-bold uppercase text-primary tracking-wide">Criterio Pedagógico</span>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold">Rúbrica Nivel IV</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">Medición Goniométrica</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Verificar consistencia inter-evaluador de rangos articulares activos versus pasivos en tobillo (P-04).
+            </p>
+</div>
+<div class="pt-2 text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">school</span>
+            Evaluación formativa de destreza manual
+          </div>
+</div>
+</div>
+</section>
+</div>
+<!-- Modal: Crear Paciente Anónimo Rápido (Backdrop & Window) -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/60 backdrop-blur-sm hidden items-center justify-center p-4" id="admission-modal">
+<div class="w-full max-w-lg bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+<!-- Modal Header -->
+<div class="p-space-lg bg-surface-container-low flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">domain_verification</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">Crear Paciente Anónimo</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Prácticas Clínicas Universitarias</span>
+</div>
+</div>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" onclick="toggleAdmissionModal(false)">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Regulatory notice box inside modal -->
+<div class="px-space-lg pt-space-md">
+<div class="p-space-sm rounded-lg bg-secondary-fixed text-on-secondary-fixed flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary shrink-0 mt-0.5">security</span>
+<div class="space-y-0.5">
+<span class="font-label-sm text-label-sm font-bold block">Cumplimiento normativo estricto</span>
+<p class="font-body-sm text-body-sm leading-tight text-on-secondary-fixed-variant">
+              No ingrese nombres, apellidos ni identificaciones oficiales. Utilice solo la codificación rotacional autorizada por el centro docente.
+            </p>
+</div>
+</div>
+</div>
+<!-- Form Inputs -->
+<form class="p-space-lg space-y-space-md" id="new-patient-form" onsubmit="handleCreatePatient(event)">
+<div>
+<label class="block font-label-md text-label-md font-semibold text-on-surface mb-1">
+            Código de Paciente Asignado <span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full h-11 px-3 bg-surface-container-low rounded-lg font-label-md text-label-md text-on-surface uppercase focus:outline-none focus:ring-2 focus:ring-primary/20" id="new-patient-code" required="" type="text" value="P-05"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 font-label-sm text-label-sm text-on-surface-variant">Correlativo sugerido</span>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md font-semibold text-on-surface mb-1">
+            Zona Anatómica y Patología Foco <span class="text-error">*</span>
+</label>
+<input class="w-full h-11 px-3 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20" id="new-patient-pathology" placeholder="Ej: Rodilla der. - Postop LCA / Lumbalgia mecánica" required="" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-label-md text-label-md font-semibold text-on-surface mb-1">
+              Región Corporal
+            </label>
+<select class="w-full h-11 px-3 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20" id="new-patient-region">
+<option value="inferior">Miembro Inferior</option>
+<option value="superior">Miembro Superior</option>
+<option value="columna">Columna / Tronco</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md font-semibold text-on-surface mb-1">
+              Etiqueta de Semanas
+            </label>
+<input class="w-full h-11 px-3 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20" id="new-patient-week" type="text" value="Semana 1 de seguimiento"/>
+</div>
+</div>
+<!-- Initial Pain Scale Selector -->
+<div>
+<label class="block font-label-md text-label-md font-semibold text-on-surface mb-1">
+            EVA Inicial de Ingreso (0 al 10)
+          </label>
+<div class="flex items-center gap-space-sm">
+<input class="flex-1 accent-primary h-2 bg-surface-container-high rounded-lg cursor-pointer" id="new-patient-eva" max="10" min="0" oninput="document.getElementById('eva-val-display').innerText = this.value + '/10'" type="range" value="6"/>
+<span class="w-12 text-center font-label-lg text-label-lg font-bold text-primary" id="eva-val-display">6/10</span>
+</div>
+</div>
+<!-- Buttons -->
+<div class="pt-space-sm flex items-center justify-end gap-space-sm">
+<button class="px-space-md py-2.5 rounded-lg bg-surface-container-high text-on-surface font-body-sm text-body-sm font-semibold hover:bg-surface-container-highest transition-colors" onclick="toggleAdmissionModal(false)" type="button">
+            Cancelar
+          </button>
+<button class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-semibold hover:bg-primary-container shadow-sm transition-all flex items-center gap-1.5" type="submit">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Crear Paciente Anónimo</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+<script>
+    // Modal toggle
+    function toggleAdmissionModal(show) {
+      const modal = document.getElementById('admission-modal');
+      if (show) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.getElementById('new-patient-pathology').focus();
+      } else {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    // Search filter
+    function handleSearch(term) {
+      const q = term.toLowerCase().trim();
+      const cards = document.querySelectorAll('.patient-card');
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(q)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Region chip filtering
+    function filterRegion(region, element) {
+      const chips = document.querySelectorAll('.filter-chip');
+      chips.forEach(chip => {
+        chip.className = 'filter-chip px-3 py-1.5 rounded-full font-label-sm text-label-sm font-medium bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all whitespace-nowrap';
+      });
+
+      element.className = 'filter-chip px-3 py-1.5 rounded-full font-label-sm text-label-sm font-semibold bg-primary text-on-primary shadow-sm transition-all whitespace-nowrap';
+
+      const cards = document.querySelectorAll('.patient-card');
+      cards.forEach(card => {
+        if (region === 'all' || card.getAttribute('data-region') === region) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Dynamic addition of a new patient card
+    function handleCreatePatient(e) {
+      e.preventDefault();
+      const code = document.getElementById('new-patient-code').value.toUpperCase().trim();
+      const pathology = document.getElementById('new-patient-pathology').value.trim();
+      const region = document.getElementById('new-patient-region').value;
+      const week = document.getElementById('new-patient-week').value.trim();
+      const eva = document.getElementById('new-patient-eva').value;
+
+      if (!code || !pathology) return;
+
+      const grid = document.getElementById('patients-grid');
+
+      const newArticle = document.createElement('article');
+      newArticle.setAttribute('data-region', region);
+      newArticle.setAttribute('data-code', code.toLowerCase());
+      newArticle.className = 'patient-card bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all p-space-md flex flex-col justify-between gap-space-md animate-in fade-in slide-in-from-top-4 duration-300';
+      
+      newArticle.innerHTML = `
+        <div class="space-y-space-sm">
+          <div class="flex items-start justify-between gap-space-sm">
+            <div class="flex items-center gap-space-sm">
+              <span class="w-12 h-12 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center shadow-sm">${code}</span>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">${pathology}</h3>
+                  <span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">${week}</span>
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant font-medium">Evaluación inicial completa &bull; Alta de turno</p>
+              </div>
+            </div>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">
+              <span class="material-symbols-outlined text-[14px]">fiber_new</span>
+              Recién Creado
+            </span>
+          </div>
+
+          <div class="bg-surface-container-low rounded-lg p-space-sm grid grid-cols-2 gap-space-sm">
+            <div>
+              <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sesiones Registradas</span>
+              <div class="flex items-center gap-2 mt-1">
+                <span class="font-headline-sm text-headline-sm font-bold text-on-surface">0</span>
+                <span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">Pendiente 1ra Sesión</span>
+              </div>
+            </div>
+
+            <div>
+              <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Evolución Escala EVA</span>
+              <div class="flex items-center gap-2 mt-1">
+                <span class="font-label-lg text-label-lg font-bold text-primary">${eva}/10</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant">(Basal)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-surface-container rounded-lg p-2.5 flex items-center justify-between">
+            <div class="space-y-0.5">
+              <span class="font-label-sm text-label-sm text-on-surface-variant">Curva de Dolor Dinámico</span>
+              <span class="block font-body-sm text-body-sm font-semibold text-on-surface">Línea base registrada hoy</span>
+            </div>
+            <svg class="w-28 h-7 text-primary" viewBox="0 0 100 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="15" cy="12" r="3" fill="currentColor" />
+              <line x1="18" y1="12" x2="90" y2="12" stroke-dasharray="3 3" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="pt-space-xs grid grid-cols-3 gap-2">
+          <button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary-container transition-colors">
+            <span class="material-symbols-outlined text-[16px]">edit_note</span>
+            <span>+ Sesión</span>
+          </button>
+          <button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium hover:bg-surface-container-highest transition-colors">
+            <span class="material-symbols-outlined text-[16px]">history_edu</span>
+            <span>Historial</span>
+          </button>
+          <button class="inline-flex items-center justify-center gap-1 py-2 px-2 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium hover:bg-surface-container-highest transition-colors">
+            <span class="material-symbols-outlined text-[16px]">show_chart</span>
+            <span>Ver EVA</span>
+          </button>
+        </div>
+      `;
+
+      grid.prepend(newArticle);
+
+      // Update stat count
+      const statElem = document.getElementById('stat-active-patients');
+      if (statElem) {
+        statElem.innerText = parseInt(statElem.innerText || '4') + 1;
+      }
+
+      toggleAdmissionModal(false);
+      e.target.reset();
+      document.getElementById('new-patient-code').value = 'P-06';
+    }
+  </script>
+</div>
+    </div>
+
+    <!-- VISTA 2: Nueva Sesión -->
+    <div id="view-nueva-sesion" class="app-view hidden">
+      <div class="flex flex-col w-full">
+<div class="w-full px-margin py-space-lg max-w-7xl mx-auto flex flex-col gap-space-lg">
+<!-- Header Contextual & Fast-Track Bar -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-semibold uppercase tracking-wider">
+            Flujo Express • Turno Docente
+          </span>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-[14px] text-tertiary">timer</span>
+            Tiempo estimado: 90 segundos
+          </span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">
+          Registro de Sesión Clínica
+        </h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-2xl">
+          Protocolo ágil post-atención inmediata. Todos los registros se integran automáticamente en el expediente de cátedra bajo anonimización activa.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<a class="inline-flex items-center gap-1.5 px-space-md py-2.5 rounded-lg bg-surface-container-high text-on-surface font-body-sm text-body-sm font-semibold hover:bg-surface-container-highest transition-colors shadow-sm" data-path="pacientes-y-turno" href="#">
+<span class="material-symbols-outlined text-[18px]">close</span>
+<span>Cancelar / Volver</span>
+</a>
+</div>
+</div>
+<!-- Panel Metadata Paciente & Sesión Activa -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+<div class="lg:col-span-7 flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1" for="paciente-select">
+<span class="material-symbols-outlined text-[16px] text-primary">person_search</span>
+          Paciente Clínico Asignado
+        </label>
+<div class="relative w-full">
+<div class="w-full h-11 px-3.5 bg-surface-container-low rounded-lg flex items-center justify-between text-on-surface font-body-md text-body-md cursor-pointer shadow-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm truncate">
+<span class="font-label-md text-label-md font-semibold text-primary px-1.5 py-0.5 rounded bg-surface-container-highest">P-01</span>
+<span class="font-semibold text-on-surface truncate">Rodilla derecha (Tendinopatía rotuliana)</span>
+</div>
+<span class="material-symbols-outlined text-[20px] text-outline">unfold_more</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">
+            4ª sesión en curso
+          </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">check_circle</span>
+            Fase: Reeducación Excén. &amp; Control Motor
+          </span>
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between lg:justify-end gap-space-md lg:pl-space-md">
+<div class="flex flex-col gap-space-xs flex-1">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">calendar_clock</span>
+            Fecha y Momento de Turno
+          </span>
+<div class="h-11 px-3.5 bg-surface-container-low rounded-lg flex items-center justify-between text-on-surface font-body-md text-body-md shadow-sm">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Hoy, 15:40 hrs</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-primary-container text-on-primary-container font-medium">
+              Sesión presencial
+            </span>
+</div>
+</div>
+</div>
+</div>
+<!-- SECCIÓN 1: ESCALA VISUAL ANALÓGICA (EVA) COMPARATIVA -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">vital_signs</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">
+              1. Monitorización EVA Comparativo
+            </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Graduación del dolor basal previo a intervención versus respuesta post-esfuerzo
+            </p>
+</div>
+</div>
+<!-- Delta Chip Computado en Vivo -->
+<div class="inline-flex items-center gap-2 px-space-md py-2 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed shadow-sm" id="eva-delta-badge">
+<span class="material-symbols-outlined text-[20px] text-tertiary">trending_down</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold leading-none" id="eva-delta-value">-3 Puntos EVA</span>
+<span class="font-label-sm text-label-sm text-on-tertiary-fixed-variant" id="eva-delta-text">Mejoría inmediata del 43%</span>
+</div>
+</div>
+</div>
+<!-- Comparador Gráfico EVA Dual -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-xl">
+<!-- Dolor ANTES -->
+<div class="flex flex-col gap-space-md bg-surface-container-low/70 p-space-md rounded-xl">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-error">priority_high</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Dolor ANTES de la sesión</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-error-container text-on-error-container shadow-sm">
+<span class="font-label-md text-label-md font-bold" id="eva-before-display">7 / 10</span>
+<span class="material-symbols-outlined text-[16px]">sentiment_very_dissatisfied</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant min-h-[32px]" id="eva-before-desc">
+            "Dolor intenso/moderado, limita flexión &gt;90° en cadena cinética cerrada."
+          </p>
+<!-- Slider Interactivo Antes -->
+<div class="flex flex-col gap-2 pt-1">
+<input class="w-full h-3 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" id="eva-before-slider" max="10" min="0" type="range" value="7"/>
+<div class="flex justify-between items-center px-1 font-label-sm text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-0.5"><span class="w-2 h-2 rounded-full bg-tertiary"></span> 0 Ninguno</span>
+<span>5 Moderado</span>
+<span class="flex items-center gap-0.5"><span class="w-2 h-2 rounded-full bg-error"></span> 10 Máximo</span>
+</div>
+</div>
+<!-- Selector Numérico Táctil Rápido -->
+<div class="grid grid-cols-11 gap-1 pt-1" id="eva-before-buttons">
+<!-- Rendered by JS or direct HTML buttons 0-10 -->
+</div>
+</div>
+<!-- Dolor DESPUÉS -->
+<div class="flex flex-col gap-space-md bg-surface-container-low/70 p-space-md rounded-xl">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">task_alt</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Dolor DESPUÉS de la sesión</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed shadow-sm">
+<span class="font-label-md text-label-md font-bold" id="eva-after-display">4 / 10</span>
+<span class="material-symbols-outlined text-[16px]">sentiment_neutral</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant min-h-[32px]" id="eva-after-desc">
+            "Dolor leve/moderado, mejor tolerancia a carga y apoyo monopodal estable."
+          </p>
+<!-- Slider Interactivo Después -->
+<div class="flex flex-col gap-2 pt-1">
+<input class="w-full h-3 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" id="eva-after-slider" max="10" min="0" type="range" value="4"/>
+<div class="flex justify-between items-center px-1 font-label-sm text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-0.5"><span class="w-2 h-2 rounded-full bg-tertiary"></span> 0 Ninguno</span>
+<span>5 Moderado</span>
+<span class="flex items-center gap-0.5"><span class="w-2 h-2 rounded-full bg-error"></span> 10 Máximo</span>
+</div>
+</div>
+<!-- Selector Numérico Táctil Rápido -->
+<div class="grid grid-cols-11 gap-1 pt-1" id="eva-after-buttons">
+<!-- Rendered by JS or direct HTML buttons 0-10 -->
+</div>
+</div>
+</div>
+</div>
+<!-- SECCIÓN 2: EJERCICIOS Y TERAPIA REALIZADA -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">fitness_center</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">
+              2. Dosificación y Terapia Ejecutada
+            </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Carga prescrita, modificaciones de rango y fisioterapia instrumental aplicada
+            </p>
+</div>
+</div>
+<button class="inline-flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-high text-primary hover:bg-surface-container-highest transition-colors font-body-sm text-body-sm font-semibold shadow-sm" id="btn-add-exercise" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Agregar Ejercicio</span>
+</button>
+</div>
+<!-- Tabla Dinámica / Tarjetas Clínicas -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+<th class="py-3 px-4 rounded-l-lg">Técnica / Ejercicio</th>
+<th class="py-3 px-4">Dosificación</th>
+<th class="py-3 px-4">Carga / Parámetros / Observación</th>
+<th class="py-3 px-4 text-center rounded-r-lg w-16">Acción</th>
+</tr>
+</thead>
+<tbody id="exercises-table-body" class="divide-none text-on-surface font-body-sm"></tbody>
+</table>
+</div>
+<!-- Quick ROM Delta Micro-Widget -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm p-space-sm bg-surface-container-low rounded-lg mt-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-tertiary">check_circle</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Goniometría rápida verificada:</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Flexión activa 118° (Delta +8° vs sesión previa)</span>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-semibold">
+          ROM Verificado
+        </span>
+</div>
+</div>
+<!-- SECCIÓN 3: NOTAS CLÍNICAS RÁPIDAS -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">assignment</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">
+            3. Notas Clínicas Rápidas (Reporte Docente)
+          </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Feedback sintético para la supervisión y planificación de la próxima sesión
+          </p>
+</div>
+</div>
+<!-- Chips de selección rápida -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Descriptores rápidos (un solo toque):</span>
+<div class="flex flex-wrap gap-2" id="quick-tags-container">
+<button class="quick-chip active inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-on-primary font-body-sm text-body-sm font-semibold transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span>Buena adherencia</span>
+</button>
+<button class="quick-chip active inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-on-primary font-body-sm text-body-sm font-semibold transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span>Fatiga moderada</span>
+</button>
+<button class="quick-chip active inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-on-primary font-body-sm text-body-sm font-semibold transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span>Sin compensaciones</span>
+</button>
+<button class="quick-chip active inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-on-primary font-body-sm text-body-sm font-semibold transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span>Rango articular aumentado</span>
+</button>
+<button class="quick-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface font-body-sm text-body-sm font-medium hover:bg-surface-container-high transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-outline">add</span>
+<span>Dolor al enfriarse</span>
+</button>
+<button class="quick-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface font-body-sm text-body-sm font-medium hover:bg-surface-container-high transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-outline">add</span>
+<span>Refuerzo propioceptivo indicado</span>
+</button>
+</div>
+</div>
+<!-- Área de Texto Clínico -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface-variant" for="clinical-notes">
+          Observaciones SOAP y progresión recomendada:
+        </label>
+<textarea class="w-full p-3.5 bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:outline-none focus:bg-surface-container transition-colors shadow-sm" id="clinical-notes" placeholder="Escribe observaciones específicas..." rows="3">Paciente tolera mejor la fase excéntrica. Se progresa carga para próxima sesión del jueves con visto bueno docente.</textarea>
+</div>
+</div>
+<!-- Barra de Confirmación y Guardado Rápido -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-xl shadow-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Validación de Turno Lista</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Sincronización con el expediente académico del estudiante</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full sm:w-auto">
+<button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-space-xl py-3 rounded-lg bg-primary text-on-primary font-headline-sm text-headline-sm font-semibold hover:bg-primary-container transition-all shadow-sm" id="btn-save-session" type="button">
+<span class="material-symbols-outlined text-[22px]">check_circle</span>
+<span>Guardar Sesión en Historial</span>
+</button>
+</div>
+</div>
+<!-- Feedback Toast Modal de Confirmación Local -->
+<div class="hidden fixed bottom-8 right-8 z-50 max-w-md bg-inverse-surface text-inverse-on-surface p-space-md rounded-xl shadow-xl flex items-center gap-space-md" id="save-confirmation-toast">
+<div class="w-10 h-10 rounded-full bg-tertiary flex items-center justify-center text-on-tertiary shrink-0">
+<span class="material-symbols-outlined text-[24px]">done_all</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold">¡Sesión Registrada con Éxito!</span>
+<span class="font-body-sm text-body-sm opacity-90">Los datos se almacenaron en el historial clínico del paciente P-01.</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function initClinicalSessionFastTrack() {
+    const beforeSlider = document.getElementById('eva-before-slider');
+    const afterSlider = document.getElementById('eva-after-slider');
+    const beforeDisplay = document.getElementById('eva-before-display');
+    const afterDisplay = document.getElementById('eva-after-display');
+    const beforeDesc = document.getElementById('eva-before-desc');
+    const afterDesc = document.getElementById('eva-after-desc');
+    const deltaValue = document.getElementById('eva-delta-value');
+    const deltaText = document.getElementById('eva-delta-text');
+    const deltaBadge = document.getElementById('eva-delta-badge');
+
+    const beforeButtonsContainer = document.getElementById('eva-before-buttons');
+    const afterButtonsContainer = document.getElementById('eva-after-buttons');
+
+    const evaDescriptions = {
+      0: "Sin dolor alguno en reposo ni movimiento activo.",
+      1: "Apenas perceptible, molestia muy leve transitoria.",
+      2: "Dolor leve que no interfiere con actividades normales.",
+      3: "Dolor leve persistente, molesto al tacto rotuliano.",
+      4: "Dolor leve/moderado, mejor tolerancia a carga y apoyo monopodal.",
+      5: "Dolor moderado que dificulta flexión profunda de rodilla.",
+      6: "Dolor moderado-intenso, compensación evidente al descender escaleras.",
+      7: "Dolor intenso/moderado, limita flexión >90° en cadena cerrada.",
+      8: "Dolor severo que impide la bipedestación prolongada.",
+      9: "Dolor muy severo que requiere asistencia física inmediata.",
+      10: "Dolor extremo e incapacitante, detención forzosa de la terapia."
+    };
+
+    function renderQuickButtons(container, activeVal, onSelect) {
+      container.innerHTML = '';
+      for (let i = 0; i <= 10; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = i;
+        const isActive = i === Number(activeVal);
+        btn.className = `h-8 rounded font-label-md text-label-md font-semibold transition-all ${
+          isActive 
+            ? 'bg-primary text-on-primary shadow-sm' 
+            : 'bg-surface-container text-on-surface hover:bg-surface-container-high'
+        }`;
+        btn.addEventListener('click', () => onSelect(i));
+        container.appendChild(btn);
+      }
+    }
+
+    function recalculateEVA() {
+      const b = parseInt(beforeSlider.value, 10);
+      const a = parseInt(afterSlider.value, 10);
+
+      beforeDisplay.innerHTML = `${b} / 10`;
+      afterDisplay.innerHTML = `${a} / 10`;
+
+      beforeDesc.textContent = `"${evaDescriptions[b]}"`;
+      afterDesc.textContent = `"${evaDescriptions[a]}"`;
+
+      renderQuickButtons(beforeButtonsContainer, b, (val) => {
+        beforeSlider.value = val;
+        recalculateEVA();
+      });
+
+      renderQuickButtons(afterButtonsContainer, a, (val) => {
+        afterSlider.value = val;
+        recalculateEVA();
+      });
+
+      const diff = b - a;
+      if (diff > 0) {
+        const pct = Math.round((diff / b) * 100);
+        deltaValue.textContent = `-${diff} Puntos EVA`;
+        deltaText.textContent = `Mejoría inmediata del ${pct}%`;
+        deltaBadge.className = "inline-flex items-center gap-2 px-space-md py-2 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed shadow-sm";
+      } else if (diff === 0) {
+        deltaValue.textContent = `Sin Variación EVA`;
+        deltaText.textContent = `Mismo nivel de dolor tras la sesión`;
+        deltaBadge.className = "inline-flex items-center gap-2 px-space-md py-2 rounded-xl bg-surface-container text-on-surface shadow-sm";
+      } else {
+        deltaValue.textContent = `+${Math.abs(diff)} Puntos EVA`;
+        deltaText.textContent = `Aumento reactivo de molestia`;
+        deltaBadge.className = "inline-flex items-center gap-2 px-space-md py-2 rounded-xl bg-error-container text-on-error-container shadow-sm";
+      }
+    }
+
+    beforeSlider.addEventListener('input', recalculateEVA);
+    afterSlider.addEventListener('input', recalculateEVA);
+    recalculateEVA();
+
+    // Toggle para chips rápidos
+    const quickChips = document.querySelectorAll('.quick-chip');
+    quickChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const isCurrentlyActive = chip.classList.contains('active');
+        const icon = chip.querySelector('.material-symbols-outlined');
+        if (isCurrentlyActive) {
+          chip.classList.remove('active', 'bg-primary', 'text-on-primary');
+          chip.classList.add('bg-surface-container', 'text-on-surface');
+          if (icon) {
+            icon.textContent = 'add';
+            icon.className = 'material-symbols-outlined text-[16px] text-outline';
+          }
+        } else {
+          chip.classList.add('active', 'bg-primary', 'text-on-primary');
+          chip.classList.remove('bg-surface-container', 'text-on-surface');
+          if (icon) {
+            icon.textContent = 'check';
+            icon.className = 'material-symbols-outlined text-[16px]';
+          }
+        }
+      });
+    });
+
+    // Agregar Ejercicio dinámico rápido
+    const btnAddExercise = document.getElementById('btn-add-exercise');
+    const exerciseTbody = document.getElementById('exercise-tbody');
+    
+    if (btnAddExercise && exerciseTbody) {
+      btnAddExercise.addEventListener('click', () => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-surface-container-low/50 transition-colors";
+        tr.innerHTML = `
+          <td class="py-3.5 px-4">
+            <div class="flex flex-col">
+              <span class="font-semibold text-on-surface">Trabajo excéntrico en step descendente</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant">Control motor monopodal</span>
+            </div>
+          </td>
+          <td class="py-3.5 px-4 font-label-md text-label-md font-semibold text-secondary">
+            3 series &times; 10 repeticiones
+          </td>
+          <td class="py-3.5 px-4">
+            <span class="px-2 py-1 rounded bg-surface-container text-on-surface font-body-sm text-body-sm inline-block">
+              Altura 15 cm, sin valgo dinámico
+            </span>
+          </td>
+          <td class="py-3.5 px-4 text-center">
+            <button type="button" class="text-outline hover:text-error transition-colors p-1 rounded hover:bg-error-container" onclick="this.closest('tr').remove()">
+              <span class="material-symbols-outlined text-[18px]">delete</span>
+            </button>
+          </td>
+        `;
+        exerciseTbody.appendChild(tr);
+      });
+    }
+
+    // Botón Guardar Sesión con confirmación Toast
+    const btnSave = document.getElementById('btn-save-session');
+    const toast = document.getElementById('save-confirmation-toast');
+    if (btnSave && toast) {
+      btnSave.addEventListener('click', () => {
+        btnSave.disabled = true;
+        btnSave.classList.add('opacity-75');
+        toast.classList.remove('hidden');
+        
+        setTimeout(() => {
+          toast.classList.add('hidden');
+          btnSave.disabled = false;
+          btnSave.classList.remove('opacity-75');
+        }, 3200);
+      });
+    }
+  })();
+</script>
+    </div>
+
+    <!-- VISTA 3: Historial Clínico -->
+    <div id="view-historial-clinico" class="app-view hidden">
+      <div class="flex flex-col w-full">
+<!-- Patient Summary Banner Section -->
+<div class="w-full px-margin py-space-lg bg-surface-container-low">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed">
+            Expediente Activo
+          </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+            Inicio: 24 Feb 2025
+          </span>
+<span class="text-outline-variant">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">school</span>
+            Tutor: Lic. Ramírez
+          </span>
+</div>
+<div class="flex flex-wrap items-baseline gap-space-sm mt-1">
+<h1 class="font-display-lg text-display-lg text-on-surface font-bold tracking-tight">
+            Historial Clínico: Paciente P-01
+          </h1>
+<span class="font-label-md text-label-md px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">
+            Rodilla derecha • Tendinopatía rotuliana
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Registro longitudinal universitario de intervenciones kinésicas y evolución de dolor mecánico. 4 sesiones computadas.
+        </p>
+</div>
+<!-- Quick Action CTAs -->
+<div class="flex items-center gap-space-sm shrink-0">
+<a class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container-highest text-secondary font-body-sm text-body-sm font-semibold hover:bg-secondary-fixed transition-colors shadow-sm" data-path="evolucion-eva" href="#">
+<span class="material-symbols-outlined text-[18px]">show_chart</span>
+<span>Ver Gráfica EVA</span>
+</a>
+<a class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-semibold hover:bg-primary-container transition-colors shadow-md shadow-primary/20" data-path="nueva-sesion" href="#">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>+ Registrar Nueva Sesión</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Metrics & Longitudinal Overview -->
+<div class="w-full px-margin -mt-6">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-space-md">
+<!-- Metric Card: Global Pain Delta -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Evolución EVA Acumulada</span>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">
+              -62.5% Dolor
+            </span>
+</div>
+<div class="flex items-baseline gap-space-sm my-2">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg font-bold text-error">8</span>
+<span class="font-label-sm text-label-sm text-outline">inicial</span>
+</div>
+<span class="material-symbols-outlined text-[20px] text-primary">arrow_forward</span>
+<div class="flex items-baseline gap-1">
+<span class="font-display-lg text-display-lg font-bold text-tertiary">3</span>
+<span class="font-label-sm text-label-sm text-outline">actual (/10)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full rounded-full transition-all duration-500" style="width: 62.5%;"></div>
+</div>
+<span class="font-body-sm text-body-sm text-tertiary font-medium mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">trending_down</span>
+            Delta neto: -5 puntos en 18 días
+          </span>
+</div>
+<!-- Metric Card: Adherence & Frequency -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Frecuencia y Dosis</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">repeat</span>
+</div>
+<div class="my-2">
+<span class="font-display-lg text-display-lg font-bold text-on-surface">4 / 4</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">Sesiones completadas (100% asistencias)</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>Cadencia recomendada: 2x/semana</span>
+</div>
+</div>
+<!-- Metric Card: Flexion Angle Progress -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Goniometría (Flexión)</span>
+<span class="material-symbols-outlined text-[18px] text-primary">straighten</span>
+</div>
+<div class="my-2 flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg font-bold text-primary">128°</span>
+<span class="font-label-md text-label-md text-tertiary font-semibold">+23° neto</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Base: 105° (24 Feb)</span>
+<span>Meta: 135°</span>
+</div>
+</div>
+<!-- Metric Card: Educational Status -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between md:col-span-3 lg:col-span-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Supervisión Docente</span>
+<span class="material-symbols-outlined text-[18px] text-tertiary">verified</span>
+</div>
+<div class="my-2">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">Validado 100%</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">Todas las firmas rubricadas por el tutor</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-secondary">
+<span class="material-symbols-outlined text-[16px]">assignment_turned_in</span>
+<span>Aprobado para pase de caso</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Search, Filter & Content Layout -->
+<div class="w-full px-margin py-space-xl">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- MAIN TIMELINE COLUMN (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-space-md">
+<!-- Filter and Search Bar -->
+<div class="bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest transition-colors" id="exerciseSearchInput" placeholder="Buscar por ejercicio, técnica o síntoma (ej. Sentadilla, TENS, Clark)..." type="text"/>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<div class="flex items-center bg-surface-container-low rounded-lg p-1 text-on-surface-variant">
+<button class="px-2.5 py-1 rounded font-label-sm text-label-sm font-semibold bg-surface-container-lowest text-primary shadow-xs">
+                Todas (4)
+              </button>
+<button class="px-2.5 py-1 rounded font-label-sm text-label-sm hover:text-on-surface transition-colors">
+                Últimas 2 sem.
+              </button>
+</div>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors flex items-center justify-center" title="Filtros avanzados">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+</div>
+<!-- Vertical Clinical Timeline -->
+<div class="relative flex flex-col gap-space-md mt-space-sm">
+<!-- Background Connecting Rail -->
+<div class="absolute left-[20px] top-6 bottom-6 w-[2px] bg-surface-container-highest hidden sm:block"></div>
+<!-- SESSION #4 (HOY) -->
+<article class="session-entry relative flex flex-col sm:flex-row gap-space-md bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow">
+<!-- Timeline Badge Node -->
+<div class="hidden sm:flex flex-col items-center shrink-0 z-10">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md font-bold shadow-md shadow-primary/30">
+                04
+              </div>
+<span class="font-label-sm text-label-sm font-semibold text-primary mt-1">Hoy</span>
+</div>
+<!-- Session Body Card -->
+<div class="flex-1 flex flex-col gap-space-sm min-w-0">
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<div>
+<div class="flex items-center gap-2">
+<span class="sm:hidden font-label-sm text-label-sm px-2 py-0.5 rounded bg-primary text-on-primary font-bold">#4</span>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Sesión #4 — Readaptación Funcional &amp; Carga</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">14 Mar 2025 • 11:30 hrs • Tratante: Xaird Michel (Estudiante)</span>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                  Validada por Tutor
+                </span>
+</div>
+<!-- EVA Micro Visualizer Card -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant">Comparativa EVA:</span>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm font-bold bg-error-container text-on-error-container">
+                      Antes: 7/10
+                    </span>
+<span class="material-symbols-outlined text-[16px] text-outline">trending_flat</span>
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm font-bold bg-tertiary-fixed text-on-tertiary-fixed">
+                      Después: 4/10
+                    </span>
+</div>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-tertiary font-bold">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+<span>-3 Puntos de dolor</span>
+</div>
+</div>
+<!-- Prescribed Protocol Table -->
+<div class="flex flex-col gap-1.5 mt-1">
+<span class="font-label-sm text-label-sm text-outline uppercase font-semibold">Ejercicios &amp; Procedimientos Clínicos</span>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+<div class="p-2 rounded bg-surface-container-high/60 flex flex-col justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Sentadilla isométrica</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">4 series x 30 seg (45° flexión)</span>
+</div>
+<div class="p-2 rounded bg-surface-container-high/60 flex flex-col justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Puente glúteo unilateral</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">3 series x 12 repeticiones</span>
+</div>
+<div class="p-2 rounded bg-surface-container-high/60 flex flex-col justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Extensión terminal rodilla</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">3 series x 15 rep (1.5 kg lastre)</span>
+</div>
+</div>
+</div>
+<!-- Clinical Observation Quote Box -->
+<div class="p-2.5 rounded-lg bg-surface-container-high/30 flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary shrink-0 mt-0.5">comment</span>
+<div class="flex-1">
+<p class="font-body-sm text-body-sm text-on-surface italic">
+                    "Excelente control motor sin dolor femororrotuliano agudo. Toleró carga isométrica con buena alineación de valgo dinámico."
+                  </p>
+</div>
+</div>
+</div>
+</article>
+<!-- SESSION #3 -->
+<article class="session-entry relative flex flex-col sm:flex-row gap-space-md bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow">
+<div class="hidden sm:flex flex-col items-center shrink-0 z-10">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-label-md text-label-md font-bold">
+                03
+              </div>
+<span class="font-label-sm text-label-sm text-outline mt-1">10 Mar</span>
+</div>
+<div class="flex-1 flex flex-col gap-space-sm min-w-0">
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<div>
+<div class="flex items-center gap-2">
+<span class="sm:hidden font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-highest text-on-surface font-bold">#3</span>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Sesión #3 — Carga Isométrica &amp; TENS</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">10 Mar 2025 • 10:00 hrs • Tratante: Xaird Michel (Estudiante)</span>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-medium">
+                  Validado
+                </span>
+</div>
+<!-- EVA -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant">Comparativa EVA:</span>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm font-bold bg-error-container text-on-error-container">
+                      Antes: 7/10
+                    </span>
+<span class="material-symbols-outlined text-[16px] text-outline">trending_flat</span>
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm font-bold bg-secondary-fixed text-on-secondary-fixed">
+                      Después: 5/10
+                    </span>
+</div>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-tertiary font-bold">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+<span>-2 Puntos de dolor</span>
+</div>
+</div>
+<!-- Prescribed Protocol Table -->
+<div class="flex flex-col gap-1.5 mt-1">
+<span class="font-label-sm text-label-sm text-outline uppercase font-semibold">Ejercicios &amp; Procedimientos Clínicos</span>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+<div class="p-2 rounded bg-surface-container-high/60 flex flex-col justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Isométricos de cuádriceps</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">3 series x 10 rep (decúbito supino)</span>
+</div>
+<div class="p-2 rounded bg-surface-container-high/60 flex flex-col justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Elevación de talones bipodal</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">3 series x 15 rep</span>
+</div>
+<div class="p-2 rounded bg-surface-container-high/60 flex flex-col justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Electroterapia TENS</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">Convencional 100Hz • 15 min polo rotuliano</span>
+</div>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-high/30 flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant shrink-0 mt-0.5">comment</span>
+<p class="font-body-sm text-body-sm text-on-surface italic">
+                  "Refiere leve rigidez matutina previa que cede tras calor superficial. Se ajusta volumen de sentadilla a favor de isométricos analíticos."
+                </p>
+</div>
+</div>
+</article>
+<!-- SESSION #2 -->
+<article class="session-entry relative flex flex-col sm:flex-row gap-space-md bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow">
+<div class="hidden sm:flex flex-col items-center shrink-0 z-10">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-label-md text-label-md font-bold">
+                02
+              </div>
+<span class="font-label-sm text-label-sm text-outline mt-1">03 Mar</span>
+</div>
+<div class="flex-1 flex flex-col gap-space-sm min-w-0">
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<div>
+<div class="flex items-center gap-2">
+<span class="sm:hidden font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-highest text-on-surface font-bold">#2</span>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Sesión #2 — Terapia Manual &amp; Descompresión</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">03 Mar 2025 • 11:00 hrs • Tratante: Xaird Michel (Estudiante)</span>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-medium">
+                  Validado
+                </span>
+</div>
+<!-- EVA -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant">Comparativa EVA:</span>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm font-bold bg-error-container text-on-error-container">
+                      Antes: 8/10
+                    </span>
+<span class="material-symbols-outlined text-[16px] text-outline">trending_flat</span>
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm font-bold bg-secondary-fixed text-on-secondary-fixed">
+                      Después: 6/10
+                    </span>
+</div>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-tertiary font-bold">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+<span>-2 Puntos de dolor</span>
+</div>
+</div>
+<!-- Prescribed Protocol Table -->
+<div class="flex flex-col gap-1.5 mt-1">
+<span class="font-label-sm text-label-sm text-outline uppercase font-semibold">Ejercicios &amp; Procedimientos Clínicos</span>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+<div class="p-2 rounded bg-surface-container-high/60 flex flex-col justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Movilización pasiva rótula</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">Grado II (Kaltenborn) caudal/medial</span>
+</div>
+<div class="p-2 rounded bg-surface-container-high/60 flex flex-col justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Activación VMO con toalla</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">3 series x 12 rep (presión poplítea)</span>
+</div>
+<div class="p-2 rounded bg-surface-container-high/60 flex flex-col justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Crioterapia local</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">Compresa húmedo-fría por 12 min</span>
+</div>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-high/30 flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant shrink-0 mt-0.5">comment</span>
+<p class="font-body-sm text-body-sm text-on-surface italic">
+                  "Buen alivio post-terapia manual. Se observa mejor deslizamiento en plano retinacular externo."
+                </p>
+</div>
+</div>
+</article>
+<!-- SESSION #1 (INICIAL) -->
+<article class="session-entry relative flex flex-col sm:flex-row gap-space-md bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow">
+<div class="hidden sm:flex flex-col items-center shrink-0 z-10">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-label-md text-label-md font-bold">
+                01
+              </div>
+<span class="font-label-sm text-label-sm text-outline mt-1">24 Feb</span>
+</div>
+<div class="flex-1 flex flex-col gap-space-sm min-w-0">
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<div>
+<div class="flex items-center gap-2">
+<span class="sm:hidden font-label-sm text-label-sm px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-bold">#1</span>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Sesión #1 — Valoración Inicial &amp; Diagnóstico Fisioterapéutico</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">24 Feb 2025 • 09:30 hrs • Tratante: Xaird Michel con Supervisión Directa</span>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-semibold">
+                  Ingreso Inicial
+                </span>
+</div>
+<!-- EVA Initial -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant">Línea Base EVA:</span>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm font-bold bg-error text-on-error">
+                      Dolor Reposo / Carga: 8/10
+                    </span>
+</div>
+</div>
+<div class="text-on-surface-variant font-label-sm text-label-sm">
+                  Evaluación exploratoria sin intervención de fuerza
+                </div>
+</div>
+<!-- Assessment Findings -->
+<div class="flex flex-col gap-1.5 mt-1">
+<span class="font-label-sm text-label-sm text-outline uppercase font-semibold">Pruebas Ortopédicas &amp; Biomecánicas Iniciales</span>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+<div class="p-2.5 rounded bg-surface-container-high/60 flex items-center justify-between">
+<div>
+<span class="font-body-sm text-body-sm font-bold text-on-surface block">Test de Clarke (Zohlen)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Signo rotuliano doloroso</span>
+</div>
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm font-bold bg-error-container text-on-error-container">
+                      Positivo (+)
+                    </span>
+</div>
+<div class="p-2.5 rounded bg-surface-container-high/60 flex items-center justify-between">
+<div>
+<span class="font-body-sm text-body-sm font-bold text-on-surface block">Rango Activo de Flexión</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Limitado por tirantez en polo inf.</span>
+</div>
+<span class="font-label-md text-label-md font-bold text-primary">
+                      105°
+                    </span>
+</div>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-high/30 flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant shrink-0 mt-0.5">notes</span>
+<p class="font-body-sm text-body-sm text-on-surface italic">
+                  "Paciente deportista aficionado (baloncesto) con dolor punzante en polo inferior de rótula derecha tras salto. Inicio de protocolo excéntrico/isométrico pautado."
+                </p>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- SIDEBAR COLUMN (4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-space-md">
+<!-- Next Session Clinical Plan Card -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border-none flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[20px]">flag</span>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Objetivos: Próxima Sesión</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Planificación previa para la sesión programada del <strong>17 Mar 2025</strong>.
+          </p>
+<ul class="flex flex-col gap-2 mt-1">
+<li class="flex items-start gap-2 p-2 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_box_outline_blank</span>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Progresión a Sentadilla Búlgara</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Carga isométrica sostenida a 30° de flexión.</span>
+</div>
+</li>
+<li class="flex items-start gap-2 p-2 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_box_outline_blank</span>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Re-test Dinanometría Cuadricipital</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Comparativa con miembro contralateral sano.</span>
+</div>
+</li>
+<li class="flex items-start gap-2 p-2 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_box_outline_blank</span>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Pauta de Ejercicios Domiciliarios</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Entregar cartilla gráfica de autoestiramiento isquiotibial.</span>
+</div>
+</li>
+</ul>
+<div class="mt-2 pt-space-xs">
+<a class="w-full inline-flex items-center justify-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary-container text-on-primary-container font-body-sm text-body-sm font-semibold hover:bg-primary hover:text-on-primary transition-all" data-path="nueva-sesion" href="#">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>Comenzar Sesión #5</span>
+</a>
+</div>
+</div>
+<!-- Academic / Clinical Reminder Callout -->
+<div class="bg-secondary-fixed/50 p-space-md rounded-xl shadow-sm flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-center gap-2">
+<span class="p-1.5 rounded-lg bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">assignment_ind</span>
+</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-secondary-fixed">Recordatorio Docente</h3>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-lg">
+<span class="font-label-sm text-label-sm uppercase font-bold text-secondary block">
+              Pase de Sala Clínico • Viernes 21 Mar
+            </span>
+<p class="font-body-sm text-body-sm text-on-surface mt-1 leading-snug">
+              Presentar caso de Paciente P-01 frente a la cátedra de Fisioterapia Músculo-esquelética: fundamentar elección de isométricos vs excéntricos en tendinopatía según escala EVA.
+            </p>
+</div>
+<div class="flex items-center justify-between text-on-secondary-fixed-variant font-label-sm text-label-sm pt-1">
+<span>Docente a cargo: Lic. Ramírez</span>
+<span class="font-semibold text-secondary">Aula 3B - 14:00</span>
+</div>
+</div>
+<!-- Visual Anatomy Reference Card -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Zona Lesional</span>
+<span class="material-symbols-outlined text-outline text-[18px]">medical_services</span>
+</div>
+<div class="relative w-full h-44 rounded-lg overflow-hidden bg-surface-container-high flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="Close up modern medical clinical anatomical model showing human knee joint tendon structure with patellar tendon highlighted in subtle teal glowing tones, clinical white clinic laboratory background, soft studio lighting, medical academic realism" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3cNA-1N61tISNbUIO9t_XEQpSOeWDBexoUBRCqUfb_OCtDSvzMqdsdGJMK6kNHHNfws7n0Z2kM4Ukg_lNZlG5fW4ssfVYpNSUVKaUV8AbcVDBOzC9uFkdOMfrwb4RzzO2KdRdB2p87-utHcazll95V8WsY_UNjJbbFuXX2X5rGmMkQh18iesR4vPbdxhH-tG_MaHJUhMncXKepXw4JcDO2ujEHJwN4gfnWj0AVHwr"/>
+<div class="absolute bottom-2 left-2 px-2 py-1 rounded bg-inverse-surface/80 backdrop-blur-sm text-inverse-on-surface font-label-sm text-label-sm font-medium">
+              Tendón Rotuliano Derecho (Entesis proximal)
+            </div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-center pt-1">
+<div class="p-2 rounded bg-surface-container-low">
+<span class="font-label-sm text-label-sm text-outline uppercase block">Fase Clínica</span>
+<span class="font-body-sm text-body-sm font-bold text-primary">Subaguda / Remodelado</span>
+</div>
+<div class="p-2 rounded bg-surface-container-low">
+<span class="font-label-sm text-label-sm text-outline uppercase block">Pronóstico</span>
+<span class="font-body-sm text-body-sm font-bold text-tertiary">Favorable (Alta en 4 ses.)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Quick dynamic search filtering for exercises or symptoms in session cards
+  document.getElementById('exerciseSearchInput')?.addEventListener('input', function(e) {
+    const query = e.target.value.toLowerCase().trim();
+    const sessionCards = document.querySelectorAll('.session-entry');
+
+    sessionCards.forEach(card => {
+      const cardText = card.textContent.toLowerCase();
+      if (!query || cardText.includes(query)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+</script>
+    </div>
+
+    <!-- VISTA 4: Evolución EVA -->
+    <div id="view-evolucion-eva" class="app-view hidden">
+      <div class="flex flex-col w-full">
+<!-- Analytics Control Bar -->
+<div class="w-full px-margin pt-space-lg pb-space-md">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Clinical Context Header -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase px-2 py-0.5 rounded-full bg-secondary-container/20 text-on-secondary-container font-semibold tracking-wider">
+            Módulo Analítico Universitario
+          </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+            Semana 4 de Prácticas
+          </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">
+          Evolución Clínica y Sustentación Docente
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Seguimiento longitudinal y métricas de goniometría/EVA listas para validación de rúbrica.
+        </p>
+</div>
+<!-- Actions & Selector Group -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Patient Picker with Anonymized ID -->
+<div class="relative">
+<label class="sr-only" for="patient-selector">Seleccionar paciente clínico</label>
+<div class="flex items-center gap-2 bg-surface-container-high px-space-md py-2.5 rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-[20px] text-primary">clinical_notes</span>
+<select id="session-patient-select" class="w-full bg-transparent font-body-sm text-body-sm font-semibold text-on-surface focus:outline-none cursor-pointer"></select>
+</div>
+</div>
+<!-- Action: Export PDF Report -->
+<button class="inline-flex items-center gap-2 px-space-md py-2.5 rounded-xl bg-primary text-on-primary font-body-sm text-body-sm font-semibold hover:bg-primary-container transition-all shadow-sm" id="btn-export-pdf">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+<span>Exportar Reporte Docente</span>
+</button>
+<!-- Action: Print Chart View -->
+<button class="inline-flex items-center gap-2 px-space-md py-2.5 rounded-xl bg-surface-container text-on-surface font-body-sm text-body-sm font-semibold hover:bg-surface-container-high transition-all shadow-sm" onclick="window.print()">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span class="hidden sm:inline">Imprimir Gráfica</span>
+</button>
+</div>
+</div>
+</div>
+<!-- KPI Banner - Clinical Impact Metrics -->
+<div class="w-full px-margin pb-space-lg">
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-gutter">
+<!-- KPI 1: Delta EVA -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Evolución EVA Acumulada</span>
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface mt-1">3 <span class="font-body-md text-body-md text-on-surface-variant font-normal">/ 10</span></span>
+</div>
+<span class="p-2 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[20px]">trending_down</span>
+</span>
+</div>
+<div class="mt-3 pt-3 flex items-center justify-between">
+<span class="font-label-md text-label-md text-tertiary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span> -62.5% de dolor
+          </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Inicial: 8/10</span>
+</div>
+</div>
+<!-- KPI 2: ROM Flexion -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Rango Articular Flexión</span>
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface mt-1">130°</span>
+</div>
+<span class="p-2 rounded-lg bg-secondary-fixed text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[20px]">straighten</span>
+</span>
+</div>
+<div class="mt-3 pt-3 flex items-center justify-between">
+<span class="font-label-md text-label-md text-secondary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">north_east</span> +25° ganancia ROM
+          </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Inicial: 105°</span>
+</div>
+</div>
+<!-- KPI 3: Attendance -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Sesiones Completadas</span>
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface mt-1">4 <span class="font-body-md text-body-md text-on-surface-variant font-normal">/ 4</span></span>
+</div>
+<span class="p-2 rounded-lg bg-primary-fixed text-on-primary-fixed">
+<span class="material-symbols-outlined text-[20px]">event_available</span>
+</span>
+</div>
+<div class="mt-3 pt-3 flex items-center justify-between">
+<span class="font-label-md text-label-md text-primary font-bold">100% Asistencia</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">En 3 semanas</span>
+</div>
+</div>
+<!-- KPI 4: Progression Metric -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Carga y Biomecánica</span>
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface mt-1">+1.5 kg</span>
+</div>
+<span class="p-2 rounded-lg bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">fitness_center</span>
+</span>
+</div>
+<div class="mt-3 pt-3 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">Cadena abierta a unipodal</span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-semibold">Fase 2</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary Interactive Analytics Arena -->
+<div class="w-full px-margin pb-space-lg">
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<!-- Graph Header with Legend and Info -->
+<div class="flex flex-col md:flex-row md:items-center justify-between pb-space-md gap-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">show_chart</span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold">
+              Dinámica de Dolor Subjetivo (Escala Visual Analógica - EVA)
+            </h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            Registro comparativo Pre-Sesión vs. Post-Sesión inmediata para verificar efecto hipoalgésico del tratamiento.
+          </p>
+</div>
+<!-- Legend and Badges -->
+<div class="flex flex-wrap items-center gap-space-md">
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-1 rounded bg-[#00685f]"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Pre-Sesión (Llegada)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-1 rounded bg-[#00855b]"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Post-Sesión (Salida)</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">touch_app</span>
+<span>Hover en puntos para desglose</span>
+</div>
+</div>
+</div>
+<!-- EVA Interactive SVG Chart -->
+<div id="evolution-svg-container" class="relative w-full overflow-x-auto">
+<div class="min-w-[700px] w-full h-[360px] relative select-none">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 880 340">
+<defs>
+<!-- Zone Gradients for Pain Severity -->
+<lineargradient id="severe-zone" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#ffdad6" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#ffdad6" stop-opacity="0.08"></stop>
+</lineargradient>
+<lineargradient id="moderate-zone" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#fef3c7" stop-opacity="0.45"></stop>
+<stop offset="100%" stop-color="#fef3c7" stop-opacity="0.10"></stop>
+</lineargradient>
+<lineargradient id="mild-zone" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#d1fae5" stop-opacity="0.55"></stop>
+<stop offset="100%" stop-color="#d1fae5" stop-opacity="0.12"></stop>
+</lineargradient>
+<!-- Line Glow & Dropshadow -->
+<filter height="120%" id="soft-shadow" width="120%" x="-10%" y="-10%">
+<fedropshadow dx="0" dy="2" flood-opacity="0.12" stddeviation="3"></fedropshadow>
+</filter>
+</defs>
+<!-- Background Pain Severity Strips (Y ranges: 0 to 10 scale) -->
+<!-- Total height is 240px (from y=40 to y=280). Each EVA point = 24px -->
+<!-- EVA 7-10 (Severe): y=40 to y=112 (height 72) -->
+<rect fill="url(#severe-zone)" height="72" rx="4" width="770" x="70" y="40"></rect>
+<!-- EVA 4-6 (Moderate): y=112 to y=184 (height 72) -->
+<rect fill="url(#moderate-zone)" height="72" rx="4" width="770" x="70" y="112"></rect>
+<!-- EVA 0-3 (Mild): y=184 to y=280 (height 96) -->
+<rect fill="url(#mild-zone)" height="96" rx="4" width="770" x="70" y="184"></rect>
+<!-- Horizontal Gridlines & Y-Axis Scale Markers -->
+<!-- EVA 10 (y=40) -->
+<line opacity="0.4" stroke="#bcc9c6" stroke-dasharray="2,4" stroke-width="1" x1="70" x2="840" y1="40" y2="40"></line>
+<text fill="#ba1a1a" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="end" x="55" y="44">10</text>
+<!-- EVA 8 (y=88) -->
+<line opacity="0.4" stroke="#bcc9c6" stroke-dasharray="2,4" stroke-width="1" x1="70" x2="840" y1="88" y2="88"></line>
+<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="end" x="55" y="92">8</text>
+<!-- EVA 6 (y=136) -->
+<line opacity="0.4" stroke="#bcc9c6" stroke-dasharray="2,4" stroke-width="1" x1="70" x2="840" y1="136" y2="136"></line>
+<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="end" x="55" y="140">6</text>
+<!-- EVA 4 (y=184) -->
+<line opacity="0.4" stroke="#bcc9c6" stroke-dasharray="2,4" stroke-width="1" x1="70" x2="840" y1="184" y2="184"></line>
+<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="end" x="55" y="188">4</text>
+<!-- EVA 2 (y=232) -->
+<line opacity="0.4" stroke="#bcc9c6" stroke-dasharray="2,4" stroke-width="1" x1="70" x2="840" y1="232" y2="232"></line>
+<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="end" x="55" y="236">2</text>
+<!-- EVA 0 (y=280) Base -->
+<line opacity="0.8" stroke="#6d7a77" stroke-width="1.5" x1="70" x2="840" y1="280" y2="280"></line>
+<text fill="#006947" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="end" x="55" y="284">0</text>
+<!-- Right-Hand Band Labels -->
+<text fill="#ba1a1a" font-family="Manrope" font-size="10" font-weight="700" x="846" y="78">Dolor Severo (7-10)</text>
+<text fill="#92400e" font-family="Manrope" font-size="10" font-weight="700" x="846" y="150">Moderado (4-6)</text>
+<text fill="#006947" font-family="Manrope" font-size="10" font-weight="700" x="846" y="234">Leve (0-3)</text>
+<!-- Vertical Session Timeline Guidelines -->
+<!-- S1: x=160 | S2: x=360 | S3: x=560 | S4: x=760 -->
+<line opacity="0.4" stroke="#bcc9c6" stroke-width="1" x1="160" x2="160" y1="40" y2="280"></line>
+<line opacity="0.4" stroke="#bcc9c6" stroke-width="1" x1="360" x2="360" y1="40" y2="280"></line>
+<line opacity="0.4" stroke="#bcc9c6" stroke-width="1" x1="560" x2="560" y1="40" y2="280"></line>
+<line opacity="0.4" stroke="#bcc9c6" stroke-width="1" x1="760" x2="760" y1="40" y2="280"></line>
+<!-- Area Shading between Pre and Post to highlight intra-session analgesia -->
+<!-- S1: Pre 88 -> Post 88 (0 gain)
+                 S2: Pre 88 -> Post 136 (gain 48)
+                 S3: Pre 112 -> Post 160 (gain 48)
+                 S4: Pre 112 -> Post 184 (gain 72) -->
+<polygon fill="#6bd8cb" fill-opacity="0.18" points="160,88 360,88 560,112 760,112 760,184 560,160 360,136 160,88"></polygon>
+<!-- TREND LINE 1: Dolor Pre-Sesión (Teal / Primary) -->
+<!-- Coordinates: S1(160, 88), S2(360, 88), S3(560, 112), S4(760, 112) -->
+<path d="M 160 88 L 360 88 L 560 112 L 760 112" fill="none" filter="url(#soft-shadow)" stroke="#00685f" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"></path>
+<!-- TREND LINE 2: Dolor Post-Sesión (Emerald / Tertiary Container) -->
+<!-- Coordinates: S1(160, 88), S2(360, 136), S3(560, 160), S4(760, 184) -->
+<path d="M 160 88 L 360 136 L 560 160 L 760 184" fill="none" filter="url(#soft-shadow)" stroke="#00855b" stroke-dasharray="6,0" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"></path>
+<!-- Pre-Sesión Data Points (Teal Filled Circles) -->
+<circle class="cursor-pointer hover:r-8 transition-all" cx="160" cy="88" fill="#00685f" r="6" stroke="#ffffff" stroke-width="2"></circle>
+<circle class="cursor-pointer hover:r-8 transition-all" cx="360" cy="88" fill="#00685f" r="6" stroke="#ffffff" stroke-width="2"></circle>
+<circle class="cursor-pointer hover:r-8 transition-all" cx="560" cy="112" fill="#00685f" r="6" stroke="#ffffff" stroke-width="2"></circle>
+<circle class="cursor-pointer hover:r-8 transition-all" cx="760" cy="112" fill="#00685f" r="6" stroke="#ffffff" stroke-width="2"></circle>
+<!-- Post-Sesión Data Points (Emerald Filled Circles) -->
+<circle class="cursor-pointer hover:r-8 transition-all" cx="160" cy="88" fill="#00855b" r="6" stroke="#ffffff" stroke-width="2"></circle>
+<circle class="cursor-pointer hover:r-8 transition-all" cx="360" cy="136" fill="#00855b" r="6" stroke="#ffffff" stroke-width="2"></circle>
+<circle class="cursor-pointer hover:r-8 transition-all" cx="560" cy="160" fill="#00855b" r="6" stroke="#ffffff" stroke-width="2"></circle>
+<circle class="cursor-pointer hover:r-8 transition-all" cx="760" cy="184" fill="#00855b" r="6" stroke="#ffffff" stroke-width="2"></circle>
+<!-- Inline Value Pills / Badges on Data Points -->
+<!-- S1 Pre/Post: 8 -->
+<rect fill="#0d1c2e" fill-opacity="0.9" height="20" rx="4" width="36" x="142" y="58"></rect>
+<text fill="#ffffff" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="middle" x="160" y="72">8/10</text>
+<!-- S2 Post: 6 -->
+<rect fill="#00855b" height="20" rx="4" width="36" x="342" y="146"></rect>
+<text fill="#ffffff" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="middle" x="360" y="160">6/10</text>
+<!-- S3 Post: 5 -->
+<rect fill="#00855b" height="20" rx="4" width="36" x="542" y="170"></rect>
+<text fill="#ffffff" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="middle" x="560" y="184">5/10</text>
+<!-- S4 Callout Marker: Peak Clinical Session -->
+<g transform="translate(680, 195)">
+<rect fill="#0d1c2e" filter="url(#soft-shadow)" height="52" rx="8" width="160" x="0" y="0"></rect>
+<text fill="#6bd8cb" font-family="JetBrains Mono" font-size="10" font-weight="700" x="12" y="18">SESIÓN 4 (14 MAR)</text>
+<text fill="#ffffff" font-family="Manrope" font-size="12" font-weight="600" x="12" y="34">Pre 7  →  Post 4</text>
+<text fill="#4edea3" font-family="JetBrains Mono" font-size="10" font-weight="600" x="12" y="46">Efecto: -3 pts analgésico</text>
+</g>
+<!-- X-Axis Labels (Sessions & Dates) -->
+<text fill="#0d1c2e" font-family="Manrope" font-size="12" font-weight="700" text-anchor="middle" x="160" y="304">Sesión 1</text>
+<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="middle" x="160" y="320">24 Feb</text>
+<text fill="#0d1c2e" font-family="Manrope" font-size="12" font-weight="700" text-anchor="middle" x="360" y="304">Sesión 2</text>
+<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="middle" x="360" y="320">03 Mar</text>
+<text fill="#0d1c2e" font-family="Manrope" font-size="12" font-weight="700" text-anchor="middle" x="560" y="304">Sesión 3</text>
+<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="middle" x="560" y="320">10 Mar</text>
+<text fill="#00685f" font-family="Manrope" font-size="12" font-weight="700" text-anchor="middle" x="760" y="304">Sesión 4</text>
+<text fill="#00685f" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="middle" x="760" y="320">14 Mar</text>
+</svg>
+</div>
+</div>
+<!-- Quick Context Footnote -->
+<div class="mt-4 pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+<span>Reducción consistente en la respuesta nociceptiva post-ejercicio terapéutico sin signos de inflamación reactiva.</span>
+</div>
+<span class="font-label-sm text-label-sm font-medium">Metodología EVA validada según Guía WCPT</span>
+</div>
+</div>
+</div>
+<!-- SECTION: Sustentación Clínica Docente & Validación de Prácticas -->
+<div class="w-full px-margin pb-space-lg">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Clinical Justification & Next Step Criterion (8 Cols) -->
+<div class="lg:col-span-8 flex flex-col gap-gutter">
+<!-- Card 1: Fisiología de la Evolución -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm relative overflow-hidden">
+<div class="flex items-center gap-space-sm mb-3">
+<span class="p-2 rounded-lg bg-primary-fixed text-on-primary-fixed">
+<span class="material-symbols-outlined text-[20px]">psychology_alt</span>
+</span>
+<div>
+<span class="font-label-sm text-label-sm uppercase font-semibold text-primary">Sustentación Teórico-Práctica</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">1. Justificación de la Evolución Fisiológica</h3>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            La disminución del dolor de reposo y la tolerancia a la dorsiflexión forzada demuestran una respuesta favorable a la modulación de carga del tendón rotuliano. Los ejercicios isométricos submáximos realizados en las semanas 1 y 2 indujeron una hipoalgesia cortical transitoria por inhibición recíproca y activación de vías descendentes serotoninérgicas. Concomitantemente, el incremento de 105° a 130° en flexión de rodilla confirma la remodelación de adherencias capsulares en receso subcuadricipital sin provocar edema residual en la escala de ecografía clínica funcional.
+          </p>
+<div class="mt-4 flex flex-wrap items-center gap-2">
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-medium">Adaptación Mecanotransductiva</span>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-medium">Hipoalgesia por Isometría</span>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-medium">Cumplimiento Guía Cook &amp; Purdam</span>
+</div>
+</div>
+<!-- Card 2: Criterio para Próxima Progresión -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm relative overflow-hidden">
+<div class="flex items-center gap-space-sm mb-3">
+<span class="p-2 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[20px]">upgrade</span>
+</span>
+<div>
+<span class="font-label-sm text-label-sm uppercase font-semibold text-tertiary">Fase 2 a Fase 3</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">2. Criterio Clínico para Próxima Progresión</h3>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Se cumplen todos los criterios de la rúbrica docente para transitar a carga de almacenamiento elástico de baja velocidad: dolor EVA matutino ≤ 3/10 sostenido durante 72 horas continuas, fuerza isométrica bilateral con déficit menor al 15% (medido mediante dinamometría manual), y flexión pasiva completa simétrica respecto a rodilla contralateral asintomática.
+          </p>
+<!-- Checklist items -->
+<div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+<div class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-tertiary text-[18px]">verified</span>
+<span class="font-body-sm text-body-sm text-on-surface">EVA Matutina ≤ 3/10 validada</span>
+</div>
+<div class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-tertiary text-[18px]">verified</span>
+<span class="font-body-sm text-body-sm text-on-surface">Déficit simétrico &lt; 15%</span>
+</div>
+<div class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-tertiary text-[18px]">verified</span>
+<span class="font-body-sm text-body-sm text-on-surface">ROM flexión ≥ 130° activo</span>
+</div>
+<div class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-[18px]">arrow_forward</span>
+<span class="font-body-sm text-body-sm text-primary font-semibold">Progresión a saltos bipodales</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Supervisor Feedback Card & Digital Signature (4 Cols) -->
+<div class="lg:col-span-4 flex flex-col justify-between bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[22px]">assignment_turned_in</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Notas del Supervisor</h3>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-bold">
+              Aprobado
+            </span>
+</div>
+<!-- Academic Feedback Bubble -->
+<div class="p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-start gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-[18px]">format_quote</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Dictamen Docente</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface italic leading-relaxed">
+              "Excelente dosificación de carga isométrica y registro riguroso de la variación intra-sesión. La correlación entre la curva de dolor y el incremento del ROM evidencia un razonamiento clínico maduro. Se autoriza progresión a cadena cinética cerrada con énfasis excéntrico y pliometría de bajo impacto."
+            </p>
+</div>
+<!-- Evaluation Score / Rubric Grade -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-primary-fixed/30">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-primary">Evaluación de Razonamiento</span>
+<span class="font-body-sm text-body-sm text-on-surface font-bold">Competencia 3: Juicio Terapéutico</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-md text-headline-md font-bold text-primary">9.8</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">/ 10</span>
+</div>
+</div>
+</div>
+<!-- Digital Signature Endorsement -->
+<div class="mt-space-lg pt-space-md bg-surface-container-lowest flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[20px]">draw</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm text-body-sm font-bold text-on-surface truncate">Lic. Carlos Ramírez, M.Sc.</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Supervisor de Área Traumatología</span>
+</div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-1">
+<span>Firma Token: <span class="font-label-sm text-label-sm font-mono text-primary">#FT-8932-DOC</span></span>
+<span>14 Mar 2025, 12:45</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Session-by-Session Comparative Matrix -->
+<div class="w-full px-margin pb-space-xl">
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<!-- Matrix Header -->
+<div class="p-space-lg flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">
+            Matriz Comparativa Longitudinal de Sesiones
+          </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Histórico detallado con cálculo automático de delta algésico y variaciones goniométricas.
+          </p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-medium">
+            4 Evaluaciones Consolidadas
+          </span>
+</div>
+</div>
+<!-- Table Container -->
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase">
+<th class="py-3 px-space-lg font-semibold" scope="col">Sesión</th>
+<th class="py-3 px-space-md font-semibold" scope="col">Fecha</th>
+<th class="py-3 px-space-md font-semibold" scope="col">EVA Pre</th>
+<th class="py-3 px-space-md font-semibold" scope="col">EVA Post</th>
+<th class="py-3 px-space-md font-semibold" scope="col">Variación Intra-Sesión</th>
+<th class="py-3 px-space-md font-semibold" scope="col">ROM Flexión</th>
+<th class="py-3 px-space-md font-semibold" scope="col">Carga Empleada</th>
+<th class="py-3 px-space-lg font-semibold" scope="col">Estado Clínico</th>
+</tr>
+</thead>
+<tbody id="exercises-table-body" class="divide-none text-on-surface font-body-sm"></tbody>
+</table>
+</div>
+<!-- Comparative Summary Footer -->
+<div class="p-space-md bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-space-md font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1">
+<strong class="text-on-surface font-label-md text-label-md">Ganancia Total ROM:</strong>
+<span class="font-label-md text-label-md text-tertiary font-bold">+25° en 20 días</span>
+</span>
+<span class="hidden sm:inline">•</span>
+<span class="flex items-center gap-1">
+<strong class="text-on-surface font-label-md text-label-md">Reducción Dolor Post-Sesión:</strong>
+<span class="font-label-md text-label-md text-tertiary font-bold">-50% respecto a basal</span>
+</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Validado por Cátedra de Kinefisiatría</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Client-side Script -->
+<script>
+    (function() {
+      // Patient selector change simulator
+      const patientSelect = document.getElementById('patient-selector');
+      if (patientSelect) {
+        patientSelect.addEventListener('change', function(e) {
+          const val = e.target.value;
+          // Simple visual feedback indication
+          const header = document.querySelector('h1');
+          if (header) {
+            header.style.opacity = '0.5';
+            setTimeout(() => {
+              header.textContent = `Evolución Clínica y Sustentación Docente - Paciente ${val}`;
+              header.style.opacity = '1';
+            }, 150);
+          }
+        });
+      }
+
+      // Simulated Export Feedback
+      const exportBtn = document.getElementById('btn-export-pdf');
+      if (exportBtn) {
+        exportBtn.addEventListener('click', function() {
+          const originalText = exportBtn.innerHTML;
+          exportBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Generando PDF Académico...';
+          setTimeout(() => {
+            exportBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span> Descargado con Éxito';
+            setTimeout(() => {
+              exportBtn.innerHTML = originalText;
+            }, 2500);
+          }, 1000);
+        });
+      }
+    })();
+  </script>
+</div>
+    </div>
+  </main>
+
+  <!-- Modal para Crear Nuevo Paciente (Anónimo) -->
+  <div id="modal-create-patient" class="fixed inset-0 z-50 hidden items-center justify-center bg-inverse-surface/40 backdrop-blur-sm p-4">
+    <div class="bg-surface-container-lowest rounded-2xl max-w-lg w-full p-space-lg shadow-xl border border-outline-variant/40">
+      <div class="flex items-center justify-between pb-3 border-b border-outline-variant/30">
+        <div class="flex items-center gap-2">
+          <span class="p-2 rounded-xl bg-primary-fixed text-on-primary-fixed">
+            <span class="material-symbols-outlined text-[20px]">person_add</span>
+          </span>
+          <div>
+            <h3 class="font-headline-sm font-bold text-on-surface">Dar de Alta Nuevo Paciente</h3>
+            <p class="font-label-sm text-on-surface-variant">Identificador anónimo para práctica clínica</p>
+          </div>
+        </div>
+        <button id="btn-close-patient-modal" type="button" class="p-1 rounded-lg text-outline hover:text-on-surface">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <form id="form-create-patient" class="space-y-4 pt-4">
+        <div class="p-3 bg-secondary-fixed/40 rounded-xl flex items-start gap-2 text-on-secondary-fixed text-[13px]">
+          <span class="material-symbols-outlined text-[18px] text-secondary shrink-0 mt-0.5">shield</span>
+          <span><strong>Regla de Privacidad:</strong> No registres nombres personales, cédulas ni teléfonos. Utiliza únicamente códigos correlativos como P-05.</span>
+        </div>
+
+        <div>
+          <label class="block font-label-sm font-bold text-on-surface mb-1" for="input-patient-code">Código Único de Paciente *</label>
+          <input id="input-patient-code" required type="text" placeholder="Ej: P-05" class="w-full bg-surface-container-high px-3 py-2 rounded-xl font-label-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"/>
+        </div>
+
+        <div>
+          <label class="block font-label-sm font-bold text-on-surface mb-1" for="input-patient-zone">Zona del Cuerpo a Tratar *</label>
+          <input id="input-patient-zone" required type="text" placeholder="Ej: Rodilla derecha, Hombro izquierdo" class="w-full bg-surface-container-high px-3 py-2 rounded-xl font-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"/>
+        </div>
+
+        <div>
+          <label class="block font-label-sm font-bold text-on-surface mb-1" for="input-patient-diag">Diagnóstico Kinésico Funcional</label>
+          <input id="input-patient-diag" type="text" placeholder="Ej: Tendinopatía rotuliana, Esguince de tobillo" class="w-full bg-surface-container-high px-3 py-2 rounded-xl font-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"/>
+        </div>
+
+        <div>
+          <label class="block font-label-sm font-bold text-on-surface mb-1" for="input-patient-region">Región Corporal (Filtro)</label>
+          <select id="input-patient-region" class="w-full bg-surface-container-high px-3 py-2 rounded-xl font-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary">
+            <option value="Miembro Inferior">Miembro Inferior</option>
+            <option value="Miembro Superior">Miembro Superior</option>
+            <option value="Columna">Columna</option>
+          </select>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-3 border-t border-outline-variant/30">
+          <button type="button" onclick="document.getElementById('modal-create-patient').classList.add('hidden'); document.getElementById('modal-create-patient').classList.remove('flex');" class="px-4 py-2 rounded-xl bg-surface-container text-on-surface font-body-sm font-semibold hover:bg-surface-container-high">
+            Cancelar
+          </button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-primary text-on-primary font-body-sm font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1">
+            <span class="material-symbols-outlined text-[18px]">check</span>
+            <span>Guardar Paciente</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
