@@ -1,157 +1,10 @@
 ﻿<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>FisioTrack - Registro Clínico y Seguimiento EVA</title>
-  <link href="https://fonts.googleapis.com" rel="preconnect"/>
-  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-  <style>
-    @layer base {
-      html, body { margin: 0; padding: 0; }
-      body { overscroll-behavior: none; }
-    }
-    ::-webkit-scrollbar { display: none; }
-  </style>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script id="tailwind-config">
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            "primary": "#00685f",
-            "on-primary": "#ffffff",
-            "primary-container": "#008378",
-            "on-primary-container": "#f4fffc",
-            "primary-fixed": "#89f5e7",
-            "primary-fixed-dim": "#6bd8cb",
-            "on-primary-fixed": "#00201d",
-            "on-primary-fixed-variant": "#005049",
-            "secondary": "#006398",
-            "on-secondary": "#ffffff",
-            "secondary-container": "#5bb8fe",
-            "on-secondary-container": "#00476e",
-            "secondary-fixed": "#cce5ff",
-            "secondary-fixed-dim": "#93ccff",
-            "on-secondary-fixed": "#001d31",
-            "on-secondary-fixed-variant": "#004b73",
-            "tertiary": "#006947",
-            "on-tertiary": "#ffffff",
-            "tertiary-container": "#00855b",
-            "on-tertiary-container": "#f5fff6",
-            "tertiary-fixed": "#6ffbbe",
-            "tertiary-fixed-dim": "#4edea3",
-            "on-tertiary-fixed": "#002113",
-            "on-tertiary-fixed-variant": "#005236",
-            "error": "#ba1a1a",
-            "on-error": "#ffffff",
-            "error-container": "#ffdad6",
-            "on-error-container": "#93000a",
-            "surface": "#f8f9ff",
-            "on-surface": "#0d1c2e",
-            "surface-dim": "#ccdbf3",
-            "surface-bright": "#f8f9ff",
-            "surface-variant": "#d5e3fc",
-            "on-surface-variant": "#3d4947",
-            "surface-container-lowest": "#ffffff",
-            "surface-container-low": "#eff4ff",
-            "surface-container": "#e6eeff",
-            "surface-container-high": "#dce9ff",
-            "surface-container-highest": "#d5e3fc",
-            "outline": "#6d7a77",
-            "outline-variant": "#bcc9c6"
-          },
-          borderRadius: {
-            DEFAULT: "0.25rem",
-            lg: "0.5rem",
-            xl: "0.75rem",
-            full: "9999px"
-          },
-          spacing: {
-            gutter: "1.25rem",
-            "gutter-mobile": "0.75rem",
-            margin: "2rem",
-            "margin-mobile": "1rem",
-            "space-xs": "0.25rem",
-            "space-sm": "0.5rem",
-            "space-md": "1rem",
-            "space-lg": "1.5rem",
-            "space-xl": "2.5rem"
-          },
-          fontFamily: {
-            "display-lg": ["Manrope"],
-            "headline-lg": ["Manrope"],
-            "headline-md": ["Manrope"],
-            "headline-sm": ["Manrope"],
-            "body-lg": ["Manrope"],
-            "body-md": ["Manrope"],
-            "body-sm": ["Manrope"],
-            "label-lg": ["JetBrains Mono"],
-            "label-md": ["JetBrains Mono"],
-            "label-sm": ["JetBrains Mono"]
-          }
-        }
-      }
-    };
-  </script>
-</head>
-<body class="bg-surface font-body-md text-body-md text-on-surface antialiased">
-  <!-- Header Global SPA -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
-    <div class="h-20 w-full px-margin flex items-center justify-between gap-space-md">
-      <div class="flex items-center gap-space-lg shrink-0">
-        <a href="#pacientes-y-turno" class="flex items-center gap-space-sm cursor-pointer">
-          <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm">
-            <span class="material-symbols-outlined text-[24px]">vital_signs</span>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">FisioTrack</span>
-            <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Prácticas Clínicas</span>
-          </div>
-        </a>
-        <div class="h-8 w-[1px] bg-outline-variant/40 hidden xl:block"></div>
-        <nav class="flex items-center gap-space-xs">
-          <a class="font-body-sm text-body-sm px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="pacientes-y-turno" href="#pacientes-y-turno">Pacientes y Turno</a>
-          <a class="font-body-sm text-body-sm px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="nueva-sesion" href="#nueva-sesion">Nueva Sesión</a>
-          <a class="font-body-sm text-body-sm px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="historial-clinico" href="#historial-clinico">Historial Clínico</a>
-          <a class="font-body-sm text-body-sm px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="evolucion-eva" href="#evolucion-eva">Evolución EVA</a>
-        </nav>
-      </div>
 
-      <div class="flex items-center gap-space-md shrink-0">
-        <div class="hidden lg:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed border border-secondary-fixed-dim">
-          <span class="material-symbols-outlined text-[16px] text-secondary">lock</span>
-          <span class="font-label-sm text-label-sm font-medium">Modo Privacidad Activo (Sin Datos Personales)</span>
-        </div>
-        <a class="hidden sm:inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-semibold hover:bg-primary-container transition-colors shadow-sm" href="#nueva-sesion">
-          <span class="material-symbols-outlined text-[18px]">add</span>
-          <span>Registrar Sesión</span>
-        </a>
-        <div class="h-8 w-[1px] bg-outline-variant/40 hidden sm:block"></div>
-        <div class="flex items-center gap-space-sm">
-          <div class="flex flex-col text-right hidden md:flex">
-            <div class="flex items-center justify-end gap-1">
-              <span class="font-body-sm text-body-sm font-semibold text-on-surface">Xarid Michel</span>
-              <span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-medium">Estudiante</span>
-            </div>
-            <span class="font-label-sm text-label-sm text-on-surface-variant">Universidad de Boyacá</span>
-          </div>
-          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-            <span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Contenedor Principal de Vistas -->
-  <main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]">
-    <!-- VISTA 1: Pacientes y Turno -->
-    <div id="view-pacientes-y-turno" class="app-view">
-      <div class="flex flex-col w-full">
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-primary-fixed-variant": "#005049", "on-primary-container": "#f4fffc", "surface-variant": "#d5e3fc", "tertiary-container": "#00855b", "primary": "#00685f", "on-error-container": "#93000a", "error": "#ba1a1a", "outline": "#6d7a77", "surface": "#f8f9ff", "surface-container-highest": "#d5e3fc", "secondary-fixed-dim": "#93ccff", "inverse-on-surface": "#eaf1ff", "outline-variant": "#bcc9c6", "surface-tint": "#006a61", "secondary-container": "#5bb8fe", "on-tertiary-fixed-variant": "#005236", "secondary": "#006398", "surface-container-low": "#eff4ff", "on-tertiary-container": "#f5fff6", "on-tertiary": "#ffffff", "primary-fixed-dim": "#6bd8cb", "on-primary": "#ffffff", "on-primary-fixed": "#00201d", "on-secondary-container": "#00476e", "inverse-surface": "#233144", "tertiary-fixed": "#6ffbbe", "on-secondary-fixed-variant": "#004b73", "surface-container-lowest": "#ffffff", "primary-container": "#008378", "on-secondary-fixed": "#001d31", "tertiary-fixed-dim": "#4edea3", "surface-container": "#e6eeff", "on-tertiary-fixed": "#002113", "on-background": "#0d1c2e", "on-error": "#ffffff", "on-surface": "#0d1c2e", "error-container": "#ffdad6", "surface-container-high": "#dce9ff", "surface-dim": "#ccdbf3", "primary-fixed": "#89f5e7", "inverse-primary": "#6bd8cb", "background": "#f8f9ff", "on-secondary": "#ffffff", "on-surface-variant": "#3d4947", "surface-bright": "#f8f9ff", "tertiary": "#006947", "secondary-fixed": "#cce5ff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "gutter": "1.25rem", "margin-mobile": "1rem", "gutter-mobile": "0.75rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "margin": "2rem", "space-xl": "2.5rem", "space-md": "1rem", "space-sm": "0.5rem" }, "fontFamily": { "label-md": ["JetBrains Mono"], "label-lg": ["JetBrains Mono"], "headline-lg-mobile": ["Manrope"], "headline-sm": ["Manrope"], "body-lg": ["Manrope"], "body-md": ["Manrope"], "label-sm": ["JetBrains Mono"], "display-lg-mobile": ["Manrope"], "headline-lg": ["Manrope"], "display-lg": ["Manrope"], "headline-md": ["Manrope"], "body-sm": ["Manrope"] }, "fontSize": { "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "500" }], "headline-lg-mobile": ["22px", { "lineHeight": "30px", "letterSpacing": "0em", "fontWeight": "600" }], "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }], "display-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 w-full px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg shrink-0"><div class="flex items-center gap-space-sm"><img alt="FisioTrack Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uu6abtI6v4wdADJsm3rnZva0VSmQJKcppNIHlFypso27PpzXnC57R8GPp4hnY8PCd3xatWvVkyaBKO5_LOuxu00X85WSpvsfcD-AmCwSfywwMO7axEwnOwlrsN07qbMVgPb9THskpfSpb-qEFndzVha0kuIuxvVDKLAAOlEaffrmTYHzrdvQVRof6vNgaAPEQIh8YpAskBSdvAPcoa7Ex7RSCDJ5EMKQYY7Q6uSjFVdw"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">FisioTrack</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Prácticas Clínicas</span></div></div><div class="h-8 w-[1px] bg-outline-variant/40 hidden xl:block"></div><nav class="flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm"><a aria-current="page" class="px-space-sm py-space-xs transition-all bg-primary-container text-on-primary-container font-semibold rounded-lg shadow-sm" data-path="pacientes-y-turno" href="#pacientes-y-turno">Pacientes y Turno</a><a class="font-body-sm text-body-sm px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="nueva-sesion" href="#nueva-sesion">Nueva Sesión</a><a class="font-body-sm text-body-sm px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="historial-clinico" href="#historial-clinico">Historial Clínico</a><a class="font-body-sm text-body-sm px-space-sm py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="evolucion-eva" href="#evolucion-eva">Evolución EVA</a></nav></div><div class="flex items-center gap-space-md shrink-0"><div class="hidden lg:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed border border-secondary-fixed-dim"><span class="material-symbols-outlined text-[16px] text-secondary">lock</span><span class="font-label-sm text-label-sm font-medium">Modo Privacidad Activo (Sin Datos Personales)</span></div><a class="hidden sm:inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-semibold hover:bg-primary-container transition-colors shadow-sm" data-path="nueva-sesion" href="#nueva-sesion"><span class="material-symbols-outlined text-[18px]">add</span><span>Registrar Sesión</span></a><div class="h-8 w-[1px] bg-outline-variant/40 hidden sm:block"></div><div class="flex items-center gap-space-sm"><div class="flex flex-col text-right hidden md:flex"><div class="flex items-center justify-end gap-1"><span class="font-body-sm text-body-sm font-semibold text-on-surface">Xaird Michel</span><span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-medium">Docente</span></div><span class="font-label-sm text-label-sm text-on-surface-variant">Centro Clínico Docente</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header>
+<main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]">
+  <div id="view-pacientes-y-turno" class="app-view">
+    <div class="flex flex-col w-full">
 <div class="w-full px-margin py-space-md space-y-space-lg">
 <!-- Top Shift Metrics Banner (Asymmetrical modern clinical card) -->
 <section class="w-full bg-surface-container-lowest rounded-xl shadow-sm p-space-lg relative overflow-hidden">
@@ -172,7 +25,7 @@
 </div>
 <div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm">
 <div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between min-w-[120px]">
-<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Pacientes Activos</span><span id="metrics-active-patients" class="hidden"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Pacientes Activos</span>
 <div class="flex items-baseline gap-1 mt-1">
 <span class="font-headline-md text-headline-md font-bold text-on-surface" id="stat-active-patients">4</span>
 <span class="font-label-sm text-label-sm text-on-surface-variant">en nómina</span>
@@ -181,13 +34,15 @@
 <div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between min-w-[120px]">
 <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sesiones Hoy</span>
 <div class="flex items-baseline gap-1 mt-1">
-<span id="metrics-sessions-today" class="font-headline-lg text-headline-lg font-bold text-on-surface">4</span> <span class="font-body-sm text-body-sm text-on-surface-variant font-medium">registradas</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">3</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">de 4 prog.</span>
 </div>
 </div>
 <div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between min-w-[120px]">
 <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Δ EVA Promedio</span>
 <div class="flex items-baseline gap-1 mt-1">
-<span id="metrics-delta-eva" class="font-headline-lg text-headline-lg font-bold text-tertiary">-2.8 pts</span>
+<span class="font-headline-md text-headline-md font-bold text-tertiary">-2.8</span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold">pts</span>
 </div>
 </div>
 <div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between min-w-[120px]">
@@ -216,7 +71,10 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant">Generación instantánea de identificador unívoco para rotaciones universitarias.</p>
 </div>
 </div>
-<button id="btn-open-create-patient" type="button" class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-semibold hover:bg-primary-container transition-colors shadow-sm cursor-pointer"><span class="material-symbols-outlined text-[18px]">person_add</span><span>Dar de Alta Nuevo Código</span></button>
+<button class="inline-flex items-center justify-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-semibold hover:bg-primary-container shadow-sm transition-all shrink-0" onclick="toggleAdmissionModal(true)">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span>Dar de Alta Nuevo Código</span>
+</button>
 </div>
 <!-- Quick Regulatory Safety Shield -->
 <div class="lg:col-span-4 bg-surface-container-low rounded-xl p-space-md shadow-sm flex items-center gap-space-sm">
@@ -232,7 +90,7 @@
 <!-- Code Search -->
 <div class="relative flex-1 max-w-md">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant text-[20px] pointer-events-none">search</span>
-<input id="search-patient-input" type="text" placeholder="Filtrar por código (ej: P-01, P-03) o patología..." class="w-full pl-10 pr-4 py-2 bg-transparent font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none"/>
+<input class="w-full h-11 pl-10 pr-4 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all" id="patient-search" oninput="handleSearch(this.value)" placeholder="Filtrar por código (ej: P-01, P-03) o patología..." type="text"/>
 </div>
 <!-- Body Region Filter Pills -->
 <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0" id="filter-container">
@@ -537,7 +395,7 @@
 </article>
 </section>
 <!-- Clinical Clinical Briefing for Round / Supervisor Discussion -->
-<section id="history-sessions-timeline" class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md">
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md">
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
 <div class="flex items-center gap-space-sm">
 <div class="w-9 h-9 rounded-lg bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-bold">
@@ -837,11 +695,9 @@
     }
   </script>
 </div>
-    </div>
-
-    <!-- VISTA 2: Nueva Sesión -->
-    <div id="view-nueva-sesion" class="app-view hidden">
-      <div class="flex flex-col w-full">
+  </div>
+  <div id="view-nueva-sesion" class="app-view hidden">
+    <div class="flex flex-col w-full">
 <div class="w-full px-margin py-space-lg max-w-7xl mx-auto flex flex-col gap-space-lg">
 <!-- Header Contextual & Fast-Track Bar -->
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
@@ -872,18 +728,12 @@
 <!-- Panel Metadata Paciente & Sesión Activa -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
 <div class="lg:col-span-7 flex flex-col gap-space-xs">
-<label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1" for="paciente-select">
-<span class="material-symbols-outlined text-[16px] text-primary">person_search</span>
-          Paciente Clínico Asignado
-        </label>
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1" for="session-patient-select">
+  <span class="material-symbols-outlined text-[16px] text-primary">person_search</span>
+  Paciente Clínico Asignado
+</label>
 <div class="relative w-full">
-<div class="w-full h-11 px-3.5 bg-surface-container-low rounded-lg flex items-center justify-between text-on-surface font-body-md text-body-md cursor-pointer shadow-sm hover:bg-surface-container transition-colors">
-<div class="flex items-center gap-space-sm truncate">
-<span class="font-label-md text-label-md font-semibold text-primary px-1.5 py-0.5 rounded bg-surface-container-highest">P-01</span>
-<span class="font-semibold text-on-surface truncate">Rodilla derecha (Tendinopatía rotuliana)</span>
-</div>
-<span class="material-symbols-outlined text-[20px] text-outline">unfold_more</span>
-</div>
+  <select id="session-patient-select" class="w-full h-11 px-3.5 bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer shadow-sm"></select>
 </div>
 <div class="flex items-center gap-2 mt-1">
 <span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">
@@ -1029,7 +879,96 @@
 <th class="py-3 px-4 text-center rounded-r-lg w-16">Acción</th>
 </tr>
 </thead>
-<tbody id="exercises-table-body" class="divide-none text-on-surface font-body-sm"></tbody>
+<tbody class="divide-y-0" id="exercises-table-body">
+<!-- Fila 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Sentadilla isométrica contra pared con fitball</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Control rotuliano anterior</span>
+</div>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md font-semibold text-secondary">
+                4 series × 30 seg
+              </td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-1 rounded bg-surface-container text-on-surface font-body-sm text-body-sm inline-block">
+                  Sin dolor agudo, 45° flexión
+                </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<button class="text-outline hover:text-error transition-colors p-1 rounded hover:bg-error-container" onclick="this.closest('tr').remove()" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Fila 2 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Puente de glúteo unilateral</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Cadena posterior &amp; estabilización pélvica</span>
+</div>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md font-semibold text-secondary">
+                3 series × 12 repeticiones
+              </td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-1 rounded bg-surface-container text-on-surface font-body-sm text-body-sm inline-block">
+                  Peso corporal + banda elástica verde
+                </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<button class="text-outline hover:text-error transition-colors p-1 rounded hover:bg-error-container" onclick="this.closest('tr').remove()" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Fila 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Extensiones de rodilla en cadena abierta terminal</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Activación VMO aislada (90°-45°)</span>
+</div>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md font-semibold text-secondary">
+                3 series × 15 repeticiones
+              </td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-1 rounded bg-surface-container text-on-surface font-body-sm text-body-sm inline-block">
+                  Tobillera 1.5 kg
+                </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<button class="text-outline hover:text-error transition-colors p-1 rounded hover:bg-error-container" onclick="this.closest('tr').remove()" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Fila 4 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Crioterapia + Terapia manual rotuliana</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Terapia física manual coadyuvante</span>
+</div>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md font-semibold text-secondary">
+                10 minutos
+              </td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-1 rounded bg-surface-container text-on-surface font-body-sm text-body-sm inline-block">
+                  Movilización grado II + hielo
+                </span>
+</td>
+<td class="py-3.5 px-4 text-center">
+<button class="text-outline hover:text-error transition-colors p-1 rounded hover:bg-error-container" onclick="this.closest('tr').remove()" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
 </table>
 </div>
 <!-- Quick ROM Delta Micro-Widget -->
@@ -1094,7 +1033,7 @@
 <label class="font-label-md text-label-md text-on-surface-variant" for="clinical-notes">
           Observaciones SOAP y progresión recomendada:
         </label>
-<textarea class="w-full p-3.5 bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:outline-none focus:bg-surface-container transition-colors shadow-sm" id="clinical-notes" placeholder="Escribe observaciones específicas..." rows="3">Paciente tolera mejor la fase excéntrica. Se progresa carga para próxima sesión del jueves con visto bueno docente.</textarea>
+<textarea class="w-full p-3.5 bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md placeholder:text-outline focus:outline-none focus:bg-surface-container transition-colors shadow-sm" id="session-notes-input" placeholder="Escribe observaciones específicas..." rows="3">Paciente tolera mejor la fase excéntrica. Se progresa carga para próxima sesión del jueves con visto bueno docente.</textarea>
 </div>
 </div>
 <!-- Barra de Confirmación y Guardado Rápido -->
@@ -1289,11 +1228,9 @@
     }
   })();
 </script>
-    </div>
-
-    <!-- VISTA 3: Historial Clínico -->
-    <div id="view-historial-clinico" class="app-view hidden">
-      <div class="flex flex-col w-full">
+  </div>
+  <div id="view-historial-clinico" class="app-view hidden">
+    <div class="flex flex-col w-full">
 <!-- Patient Summary Banner Section -->
 <div class="w-full px-margin py-space-lg bg-surface-container-low">
 <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
@@ -1313,7 +1250,7 @@
           </span>
 </div>
 <div class="flex flex-wrap items-baseline gap-space-sm mt-1">
-<h1 class="font-display-lg text-display-lg text-on-surface font-bold tracking-tight">
+<h1 id="history-patient-title" class="font-display-lg text-display-lg text-on-surface font-bold tracking-tight">
             Historial Clínico: Paciente P-01
           </h1>
 <span class="font-label-md text-label-md px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">
@@ -1326,14 +1263,18 @@
 </div>
 <!-- Quick Action CTAs -->
 <div class="flex items-center gap-space-sm shrink-0">
-<a class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container-highest text-secondary font-body-sm text-body-sm font-semibold hover:bg-secondary-fixed transition-colors shadow-sm" data-path="evolucion-eva" href="#">
-<span class="material-symbols-outlined text-[18px]">show_chart</span>
-<span>Ver Gráfica EVA</span>
-</a>
-<a class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-semibold hover:bg-primary-container transition-colors shadow-md shadow-primary/20" data-path="nueva-sesion" href="#">
-<span class="material-symbols-outlined text-[18px]">add_circle</span>
-<span>+ Registrar Nueva Sesión</span>
-</a>
+  <div class="flex items-center gap-2 bg-surface-container-high px-3 py-2 rounded-xl">
+    <span class="material-symbols-outlined text-[18px] text-primary">clinical_notes</span>
+    <select id="history-patient-selector" class="bg-transparent font-body-sm font-semibold text-on-surface focus:outline-none cursor-pointer"></select>
+  </div>
+  <a class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container-highest text-secondary font-body-sm text-body-sm font-semibold hover:bg-secondary-fixed transition-colors shadow-sm" href="#evolucion-eva">
+    <span class="material-symbols-outlined text-[18px]">show_chart</span>
+    <span>Ver Gráfica EVA</span>
+  </a>
+  <a class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-semibold hover:bg-primary-container transition-colors shadow-md shadow-primary/20" href="#nueva-sesion">
+    <span class="material-symbols-outlined text-[18px]">add_circle</span>
+    <span>+ Registrar Nueva Sesión</span>
+  </a>
 </div>
 </div>
 </div>
@@ -1441,7 +1382,7 @@
 </button>
 </div>
 </div>
-<!-- Vertical Clinical Timeline -->
+<!-- Vertical Clinical Timeline -->`n<div id="history-sessions-timeline" class="space-y-space-md"></div>
 <div class="relative flex flex-col gap-space-md mt-space-sm">
 <!-- Background Connecting Rail -->
 <div class="absolute left-[20px] top-6 bottom-6 w-[2px] bg-surface-container-highest hidden sm:block"></div>
@@ -1823,11 +1764,9 @@
     });
   });
 </script>
-    </div>
-
-    <!-- VISTA 4: Evolución EVA -->
-    <div id="view-evolucion-eva" class="app-view hidden">
-      <div class="flex flex-col w-full">
+  </div>
+  <div id="view-evolucion-eva" class="app-view hidden">
+    <div class="flex flex-col w-full">
 <!-- Analytics Control Bar -->
 <div class="w-full px-margin pt-space-lg pb-space-md">
 <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
@@ -1856,7 +1795,7 @@
 <label class="sr-only" for="patient-selector">Seleccionar paciente clínico</label>
 <div class="flex items-center gap-2 bg-surface-container-high px-space-md py-2.5 rounded-xl shadow-sm">
 <span class="material-symbols-outlined text-[20px] text-primary">clinical_notes</span>
-<select id="session-patient-select" class="w-full bg-transparent font-body-sm text-body-sm font-semibold text-on-surface focus:outline-none cursor-pointer"></select>
+<select id="evolution-patient-selector" class="bg-transparent font-body-sm text-body-sm font-semibold text-on-surface focus:outline-none cursor-pointer pr-4"></select>
 </div>
 </div>
 <!-- Action: Export PDF Report -->
@@ -1978,116 +1917,7 @@
 </div>
 </div>
 <!-- EVA Interactive SVG Chart -->
-<div id="evolution-svg-container" class="relative w-full overflow-x-auto">
-<div class="min-w-[700px] w-full h-[360px] relative select-none">
-<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 880 340">
-<defs>
-<!-- Zone Gradients for Pain Severity -->
-<lineargradient id="severe-zone" x1="0" x2="0" y1="0" y2="1">
-<stop offset="0%" stop-color="#ffdad6" stop-opacity="0.35"></stop>
-<stop offset="100%" stop-color="#ffdad6" stop-opacity="0.08"></stop>
-</lineargradient>
-<lineargradient id="moderate-zone" x1="0" x2="0" y1="0" y2="1">
-<stop offset="0%" stop-color="#fef3c7" stop-opacity="0.45"></stop>
-<stop offset="100%" stop-color="#fef3c7" stop-opacity="0.10"></stop>
-</lineargradient>
-<lineargradient id="mild-zone" x1="0" x2="0" y1="0" y2="1">
-<stop offset="0%" stop-color="#d1fae5" stop-opacity="0.55"></stop>
-<stop offset="100%" stop-color="#d1fae5" stop-opacity="0.12"></stop>
-</lineargradient>
-<!-- Line Glow & Dropshadow -->
-<filter height="120%" id="soft-shadow" width="120%" x="-10%" y="-10%">
-<fedropshadow dx="0" dy="2" flood-opacity="0.12" stddeviation="3"></fedropshadow>
-</filter>
-</defs>
-<!-- Background Pain Severity Strips (Y ranges: 0 to 10 scale) -->
-<!-- Total height is 240px (from y=40 to y=280). Each EVA point = 24px -->
-<!-- EVA 7-10 (Severe): y=40 to y=112 (height 72) -->
-<rect fill="url(#severe-zone)" height="72" rx="4" width="770" x="70" y="40"></rect>
-<!-- EVA 4-6 (Moderate): y=112 to y=184 (height 72) -->
-<rect fill="url(#moderate-zone)" height="72" rx="4" width="770" x="70" y="112"></rect>
-<!-- EVA 0-3 (Mild): y=184 to y=280 (height 96) -->
-<rect fill="url(#mild-zone)" height="96" rx="4" width="770" x="70" y="184"></rect>
-<!-- Horizontal Gridlines & Y-Axis Scale Markers -->
-<!-- EVA 10 (y=40) -->
-<line opacity="0.4" stroke="#bcc9c6" stroke-dasharray="2,4" stroke-width="1" x1="70" x2="840" y1="40" y2="40"></line>
-<text fill="#ba1a1a" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="end" x="55" y="44">10</text>
-<!-- EVA 8 (y=88) -->
-<line opacity="0.4" stroke="#bcc9c6" stroke-dasharray="2,4" stroke-width="1" x1="70" x2="840" y1="88" y2="88"></line>
-<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="end" x="55" y="92">8</text>
-<!-- EVA 6 (y=136) -->
-<line opacity="0.4" stroke="#bcc9c6" stroke-dasharray="2,4" stroke-width="1" x1="70" x2="840" y1="136" y2="136"></line>
-<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="end" x="55" y="140">6</text>
-<!-- EVA 4 (y=184) -->
-<line opacity="0.4" stroke="#bcc9c6" stroke-dasharray="2,4" stroke-width="1" x1="70" x2="840" y1="184" y2="184"></line>
-<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="end" x="55" y="188">4</text>
-<!-- EVA 2 (y=232) -->
-<line opacity="0.4" stroke="#bcc9c6" stroke-dasharray="2,4" stroke-width="1" x1="70" x2="840" y1="232" y2="232"></line>
-<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="end" x="55" y="236">2</text>
-<!-- EVA 0 (y=280) Base -->
-<line opacity="0.8" stroke="#6d7a77" stroke-width="1.5" x1="70" x2="840" y1="280" y2="280"></line>
-<text fill="#006947" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="end" x="55" y="284">0</text>
-<!-- Right-Hand Band Labels -->
-<text fill="#ba1a1a" font-family="Manrope" font-size="10" font-weight="700" x="846" y="78">Dolor Severo (7-10)</text>
-<text fill="#92400e" font-family="Manrope" font-size="10" font-weight="700" x="846" y="150">Moderado (4-6)</text>
-<text fill="#006947" font-family="Manrope" font-size="10" font-weight="700" x="846" y="234">Leve (0-3)</text>
-<!-- Vertical Session Timeline Guidelines -->
-<!-- S1: x=160 | S2: x=360 | S3: x=560 | S4: x=760 -->
-<line opacity="0.4" stroke="#bcc9c6" stroke-width="1" x1="160" x2="160" y1="40" y2="280"></line>
-<line opacity="0.4" stroke="#bcc9c6" stroke-width="1" x1="360" x2="360" y1="40" y2="280"></line>
-<line opacity="0.4" stroke="#bcc9c6" stroke-width="1" x1="560" x2="560" y1="40" y2="280"></line>
-<line opacity="0.4" stroke="#bcc9c6" stroke-width="1" x1="760" x2="760" y1="40" y2="280"></line>
-<!-- Area Shading between Pre and Post to highlight intra-session analgesia -->
-<!-- S1: Pre 88 -> Post 88 (0 gain)
-                 S2: Pre 88 -> Post 136 (gain 48)
-                 S3: Pre 112 -> Post 160 (gain 48)
-                 S4: Pre 112 -> Post 184 (gain 72) -->
-<polygon fill="#6bd8cb" fill-opacity="0.18" points="160,88 360,88 560,112 760,112 760,184 560,160 360,136 160,88"></polygon>
-<!-- TREND LINE 1: Dolor Pre-Sesión (Teal / Primary) -->
-<!-- Coordinates: S1(160, 88), S2(360, 88), S3(560, 112), S4(760, 112) -->
-<path d="M 160 88 L 360 88 L 560 112 L 760 112" fill="none" filter="url(#soft-shadow)" stroke="#00685f" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"></path>
-<!-- TREND LINE 2: Dolor Post-Sesión (Emerald / Tertiary Container) -->
-<!-- Coordinates: S1(160, 88), S2(360, 136), S3(560, 160), S4(760, 184) -->
-<path d="M 160 88 L 360 136 L 560 160 L 760 184" fill="none" filter="url(#soft-shadow)" stroke="#00855b" stroke-dasharray="6,0" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"></path>
-<!-- Pre-Sesión Data Points (Teal Filled Circles) -->
-<circle class="cursor-pointer hover:r-8 transition-all" cx="160" cy="88" fill="#00685f" r="6" stroke="#ffffff" stroke-width="2"></circle>
-<circle class="cursor-pointer hover:r-8 transition-all" cx="360" cy="88" fill="#00685f" r="6" stroke="#ffffff" stroke-width="2"></circle>
-<circle class="cursor-pointer hover:r-8 transition-all" cx="560" cy="112" fill="#00685f" r="6" stroke="#ffffff" stroke-width="2"></circle>
-<circle class="cursor-pointer hover:r-8 transition-all" cx="760" cy="112" fill="#00685f" r="6" stroke="#ffffff" stroke-width="2"></circle>
-<!-- Post-Sesión Data Points (Emerald Filled Circles) -->
-<circle class="cursor-pointer hover:r-8 transition-all" cx="160" cy="88" fill="#00855b" r="6" stroke="#ffffff" stroke-width="2"></circle>
-<circle class="cursor-pointer hover:r-8 transition-all" cx="360" cy="136" fill="#00855b" r="6" stroke="#ffffff" stroke-width="2"></circle>
-<circle class="cursor-pointer hover:r-8 transition-all" cx="560" cy="160" fill="#00855b" r="6" stroke="#ffffff" stroke-width="2"></circle>
-<circle class="cursor-pointer hover:r-8 transition-all" cx="760" cy="184" fill="#00855b" r="6" stroke="#ffffff" stroke-width="2"></circle>
-<!-- Inline Value Pills / Badges on Data Points -->
-<!-- S1 Pre/Post: 8 -->
-<rect fill="#0d1c2e" fill-opacity="0.9" height="20" rx="4" width="36" x="142" y="58"></rect>
-<text fill="#ffffff" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="middle" x="160" y="72">8/10</text>
-<!-- S2 Post: 6 -->
-<rect fill="#00855b" height="20" rx="4" width="36" x="342" y="146"></rect>
-<text fill="#ffffff" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="middle" x="360" y="160">6/10</text>
-<!-- S3 Post: 5 -->
-<rect fill="#00855b" height="20" rx="4" width="36" x="542" y="170"></rect>
-<text fill="#ffffff" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="middle" x="560" y="184">5/10</text>
-<!-- S4 Callout Marker: Peak Clinical Session -->
-<g transform="translate(680, 195)">
-<rect fill="#0d1c2e" filter="url(#soft-shadow)" height="52" rx="8" width="160" x="0" y="0"></rect>
-<text fill="#6bd8cb" font-family="JetBrains Mono" font-size="10" font-weight="700" x="12" y="18">SESIÓN 4 (14 MAR)</text>
-<text fill="#ffffff" font-family="Manrope" font-size="12" font-weight="600" x="12" y="34">Pre 7  →  Post 4</text>
-<text fill="#4edea3" font-family="JetBrains Mono" font-size="10" font-weight="600" x="12" y="46">Efecto: -3 pts analgésico</text>
-</g>
-<!-- X-Axis Labels (Sessions & Dates) -->
-<text fill="#0d1c2e" font-family="Manrope" font-size="12" font-weight="700" text-anchor="middle" x="160" y="304">Sesión 1</text>
-<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="middle" x="160" y="320">24 Feb</text>
-<text fill="#0d1c2e" font-family="Manrope" font-size="12" font-weight="700" text-anchor="middle" x="360" y="304">Sesión 2</text>
-<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="middle" x="360" y="320">03 Mar</text>
-<text fill="#0d1c2e" font-family="Manrope" font-size="12" font-weight="700" text-anchor="middle" x="560" y="304">Sesión 3</text>
-<text fill="#6d7a77" font-family="JetBrains Mono" font-size="11" text-anchor="middle" x="560" y="320">10 Mar</text>
-<text fill="#00685f" font-family="Manrope" font-size="12" font-weight="700" text-anchor="middle" x="760" y="304">Sesión 4</text>
-<text fill="#00685f" font-family="JetBrains Mono" font-size="11" font-weight="600" text-anchor="middle" x="760" y="320">14 Mar</text>
-</svg>
-</div>
-</div>
+<div id="evolution-svg-container" class="relative w-full overflow-x-auto"></div>
 <!-- Quick Context Footnote -->
 <div class="mt-4 pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-on-surface-variant font-body-sm text-body-sm">
 <div class="flex items-center gap-2">
@@ -2245,7 +2075,7 @@
 <th class="py-3 px-space-lg font-semibold" scope="col">Estado Clínico</th>
 </tr>
 </thead>
-<tbody id="exercises-table-body" class="divide-none text-on-surface font-body-sm"></tbody>
+<tbody id="evolution-matrix-tbody" class="divide-none text-on-surface font-body-sm"></tbody>
 </table>
 </div>
 <!-- Comparative Summary Footer -->
@@ -2305,72 +2135,10 @@
     })();
   </script>
 </div>
-    </div>
-  </main>
-
-  <!-- Modal para Crear Nuevo Paciente (Anónimo) -->
-  <div id="modal-create-patient" class="fixed inset-0 z-50 hidden items-center justify-center bg-inverse-surface/40 backdrop-blur-sm p-4">
-    <div class="bg-surface-container-lowest rounded-2xl max-w-lg w-full p-space-lg shadow-xl border border-outline-variant/40">
-      <div class="flex items-center justify-between pb-3 border-b border-outline-variant/30">
-        <div class="flex items-center gap-2">
-          <span class="p-2 rounded-xl bg-primary-fixed text-on-primary-fixed">
-            <span class="material-symbols-outlined text-[20px]">person_add</span>
-          </span>
-          <div>
-            <h3 class="font-headline-sm font-bold text-on-surface">Dar de Alta Nuevo Paciente</h3>
-            <p class="font-label-sm text-on-surface-variant">Identificador anónimo para práctica clínica</p>
-          </div>
-        </div>
-        <button id="btn-close-patient-modal" type="button" class="p-1 rounded-lg text-outline hover:text-on-surface">
-          <span class="material-symbols-outlined">close</span>
-        </button>
-      </div>
-
-      <form id="form-create-patient" class="space-y-4 pt-4">
-        <div class="p-3 bg-secondary-fixed/40 rounded-xl flex items-start gap-2 text-on-secondary-fixed text-[13px]">
-          <span class="material-symbols-outlined text-[18px] text-secondary shrink-0 mt-0.5">shield</span>
-          <span><strong>Regla de Privacidad:</strong> No registres nombres personales, cédulas ni teléfonos. Utiliza únicamente códigos correlativos como P-05.</span>
-        </div>
-
-        <div>
-          <label class="block font-label-sm font-bold text-on-surface mb-1" for="input-patient-code">Código Único de Paciente *</label>
-          <input id="input-patient-code" required type="text" placeholder="Ej: P-05" class="w-full bg-surface-container-high px-3 py-2 rounded-xl font-label-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"/>
-        </div>
-
-        <div>
-          <label class="block font-label-sm font-bold text-on-surface mb-1" for="input-patient-zone">Zona del Cuerpo a Tratar *</label>
-          <input id="input-patient-zone" required type="text" placeholder="Ej: Rodilla derecha, Hombro izquierdo" class="w-full bg-surface-container-high px-3 py-2 rounded-xl font-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"/>
-        </div>
-
-        <div>
-          <label class="block font-label-sm font-bold text-on-surface mb-1" for="input-patient-diag">Diagnóstico Kinésico Funcional</label>
-          <input id="input-patient-diag" type="text" placeholder="Ej: Tendinopatía rotuliana, Esguince de tobillo" class="w-full bg-surface-container-high px-3 py-2 rounded-xl font-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"/>
-        </div>
-
-        <div>
-          <label class="block font-label-sm font-bold text-on-surface mb-1" for="input-patient-region">Región Corporal (Filtro)</label>
-          <select id="input-patient-region" class="w-full bg-surface-container-high px-3 py-2 rounded-xl font-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary">
-            <option value="Miembro Inferior">Miembro Inferior</option>
-            <option value="Miembro Superior">Miembro Superior</option>
-            <option value="Columna">Columna</option>
-          </select>
-        </div>
-
-        <div class="flex items-center justify-end gap-2 pt-3 border-t border-outline-variant/30">
-          <button type="button" onclick="document.getElementById('modal-create-patient').classList.add('hidden'); document.getElementById('modal-create-patient').classList.remove('flex');" class="px-4 py-2 rounded-xl bg-surface-container text-on-surface font-body-sm font-semibold hover:bg-surface-container-high">
-            Cancelar
-          </button>
-          <button type="submit" class="px-5 py-2 rounded-xl bg-primary text-on-primary font-body-sm font-semibold hover:bg-primary-container shadow-sm flex items-center gap-1">
-            <span class="material-symbols-outlined text-[18px]">check</span>
-            <span>Guardar Paciente</span>
-          </button>
-        </div>
-      </form>
-    </div>
   </div>
+</main>
 
-  <!-- Scripts -->
-  <script src="js/storage.js"></script>
-  <script src="js/app.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
